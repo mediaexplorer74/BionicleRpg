@@ -1,0 +1,65 @@
+Bionicle: Destiny of the Toa
+
+Features
+BIONICLE: Destiny of the Toa is a 2D top-down RPG with procedurally generated islands and dungeons. Experience the infinite possibilities when it comes to world exploration, start a new game, and get a new world every time, or save the game to reload and explore your absolute favorite world again and again.
+
+Use mask powers to find new ways to explore the world around you. Visit all the different biomes, either by yourself or use the map if you ever get lost.
+
+Help the Matoran villagers by accepting quests. Venture out into the world to gather materials, clear dungeons or defeat enemies 
+
+Controls
+WASD: Move
+LMB: Normal attack
+RMB: Elemental attack
+Left Shift: Mask power
+1-6: Change character / mask
+M: Map
+F: Interact
+ESC: Quit game
+Feedback
+This game is only a prototype, and we are aware of some of the technical bugs this version has. We are very open for all feedback, but we're especially searching for feedback on all non-technical aspects.  We currently have a spreadsheet of all known bugs / issues, so if you experience any that aren't on the list, we encourage you to report it! 
+
+https://docs.google.com/spreadsheets/d/1iIPjqI47CVt9hJTTJgE-VyuyhmL0G1kcLtonY8b3... 
+
+This project is a student exam project made in ~3-4 weeks using mono-game. Updates / changes are not promised to be made or released for that reason.
+
+(This project and the developers are not affiliated with the LEGO Group, and all trademarks are property of LEGO)
+
+Больше информации
+Скачать
+BionicleDOT.zip
+15 MB
+Инструкции по установке
+With the Itch app:
+Click install
+Click play when it is finished!
+Manual Download
+Download the zip file, and extract
+Open extracted folder and open 'BionicleRpg.exe'
+(Bonus) Delete save files
+Navigate to the installation folder
+Find 'BionicleRpgDatabase.db' and delete it
+Upon opening game, a new file should be made without any saves in it
+Комментарии
+Оставьте комментарий…
+
+
+
+Mirrorman95
+2 years ago
+"DESTINTY"?
+
+Ответить
+Пожаловаться
+
+
+itch.io
+·
+Просмотреть всё от Ripofirm
+·
+Пожаловаться
+·
+Встроить
+·
+Обновлено May 31, 2023
+Games › Adventure › Free

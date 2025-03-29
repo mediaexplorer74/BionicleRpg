@@ -1,0 +1,8 @@
+Bugs/known issues,Description
+Wall collision,"While using speed mask, you can run diagonally through walls"
+Run through water (jesus effect),"While in water, you can move without the water mask if you're running diagonally"
+Quests not save based,"If you accept a quest, save the game and then exit, the game will not remember the quest"
+Bamboo quest not working,The counter for collecting bamboo when the quest is active doesn't work
+No max on save games,"While the load game screen only has space for 8 save files, nothing stops player from creating new ones"
+Switch mask while levitating,Switching masks while levitating makes the character look like they are still levitating
+Sometimes quests can't be completed,"Even though quests might be complete, they cannot be finished. This happens on some PC's and not others."
