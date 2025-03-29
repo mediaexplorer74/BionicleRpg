@@ -62,9 +62,8 @@ namespace GameManager.Quests
 
         public static void Initialize()
         {
-            // RnD
             foreach (Type type 
-                in /*Assembly.GetExecutingAssembly().GetTypes()*/typeof(Quest).GetTypeInfo().Assembly.GetTypes())
+                in typeof(Quest).GetTypeInfo().Assembly.GetTypes())
             {
                  if (typeof(Quest).IsAssignableFrom(type) && type != typeof(Quest))
                      Quest.questTypes.Add(type);

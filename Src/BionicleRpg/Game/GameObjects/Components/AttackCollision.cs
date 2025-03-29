@@ -22,9 +22,14 @@ namespace GameManager.GameObjects.Components
     private Texture2D texture;
     private SpriteRenderer spriteRenderer;
 
-    public AttackCollision() { }
+    public AttackCollision()
+    { }
 
-    public AttackCollision(GameObject gameObject) : this() { }
+    public AttackCollision(GameObject gameObject) : this() 
+    {
+       
+    }
+
     public void Start()
     {
       this.spriteRenderer = this.GameObject.GetComponent<SpriteRenderer>();
@@ -35,7 +40,10 @@ namespace GameManager.GameObjects.Components
     {
       get
       {
-        return new Rectangle((int) ((double) this.GameObject.Transform.Position.X - (double) (this.spriteRenderer.Sprite.Width / 2) * (double) this.Transform.Scale), (int) ((double) this.GameObject.Transform.Position.Y - (double) (this.spriteRenderer.Sprite.Height / 2) * (double) this.Transform.Scale), (int) ((double) this.spriteRenderer.Sprite.Width * (double) this.Transform.Scale), (int) ((double) this.spriteRenderer.Sprite.Width * (double) this.Transform.Scale));
+        return new Rectangle((int) ((double) this.GameObject.Transform.Position.X - (double) (this.spriteRenderer.Sprite.Width / 2) * (double) this.Transform.Scale),
+            (int) ((double) this.GameObject.Transform.Position.Y - (double) (this.spriteRenderer.Sprite.Height / 2) * (double) this.Transform.Scale), 
+            (int) ((double) this.spriteRenderer.Sprite.Width * (double) this.Transform.Scale), 
+            (int) ((double) this.spriteRenderer.Sprite.Width * (double) this.Transform.Scale));
       }
     }
 

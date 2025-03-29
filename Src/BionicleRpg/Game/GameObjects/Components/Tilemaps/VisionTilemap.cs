@@ -22,15 +22,13 @@ namespace GameManager.GameObjects.Components.Tilemaps
 
     public Color VisionColor { get; set; } = VisionTilemap.OriginalVisionColor;
 
-    public VisionTilemap() 
-    {
-        // Initialize with gameObject       
+    public VisionTilemap()
+    {  
         VisionTilemap.Instance = this;
-
     }
+
     public VisionTilemap(GameObject gameObject) : this()
     {
-        this.GameObject = gameObject;
         VisionTilemap.Instance = this;
     }
 

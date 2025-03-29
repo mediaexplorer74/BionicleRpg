@@ -9,7 +9,8 @@ namespace GameManager.GameObjects.Components
 {
   public class Forge : Building
   {
-        public Forge() { }
+        public Forge() 
+        { }
 
         public Forge(GameObject gameObject) : this() { }
     }

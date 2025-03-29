@@ -24,10 +24,10 @@ namespace GameManager.GameObjects.Components.Lighting
 
     public float HalfArc { private get; set; } = 180f;
 
-    public LightEmitter() //: base() 
+    public LightEmitter() 
     { }
 
-    public LightEmitter(GameObject gameObject) : this()//base(gameObject)
+    public LightEmitter(GameObject gameObject) : this()
     { }
 
     public void Update()

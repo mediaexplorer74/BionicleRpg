@@ -27,7 +27,7 @@ namespace GameManager.GameObjects.Components.Items.Weapons
     {
     }
 
-    public Weapon(string name, float damage, float speed)
+    public Weapon(string name, float damage, float speed) : this()
     {
       this.Name = name;
       this.Damage = damage;

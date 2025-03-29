@@ -57,9 +57,11 @@ namespace GameManager.GameObjects.Components.NpcComponents
       this.extraReactionTime += Game1.Random.NextFloat(-0.03f, 0.03f);
     }
 
-    protected virtual void Death() => this.GameObject.Destroy();
+    protected virtual void Death()
+    {
+        this.GameObject.Destroy();
+    }
 
-    
     public void Awake()
     {
       this.spriteRenderer = this.GetComponent<SpriteRenderer>();
@@ -125,8 +127,10 @@ namespace GameManager.GameObjects.Components.NpcComponents
       this.UpdateRotation();
       this.UpdateMaskRotation();
       this.UpdateInteraction();
+
       if ((double) this.HealthComponent.CurrentHealth != 0.0)
         return;
+
       this.Death();
     }
 

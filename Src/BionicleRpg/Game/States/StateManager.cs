@@ -21,6 +21,7 @@ namespace GameManager.States
       {
         if (StateManager.instance == null)
           StateManager.instance = new StateManager();
+
         return StateManager.instance;
       }
     }
@@ -31,6 +32,7 @@ namespace GameManager.States
     {
       if (this.screens.Count > 0)
         this.screens.Peek().Exit();
+
       this.screens.Push(screen);
       this.screens.Peek().Enter();
     }
@@ -39,6 +41,7 @@ namespace GameManager.States
     {
       if (this.screens.Count <= 0)
         return;
+
       this.screens.Pop().Exit();
       this.screens.Peek().Enter();
     }

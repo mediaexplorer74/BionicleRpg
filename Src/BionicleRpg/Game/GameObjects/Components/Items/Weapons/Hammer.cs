@@ -11,7 +11,7 @@ namespace GameManager.GameObjects.Components.Items.Weapons
 {
   public class Hammer : Weapon
   {
-    public Hammer()
+    public Hammer() 
     {
       this.Name = "Elemental Hammer";
       this.Damage = 5f;
@@ -22,7 +22,7 @@ namespace GameManager.GameObjects.Components.Items.Weapons
 
     public Hammer(GameObject gameObject) : this()
     {
-        this.GameObject = gameObject;
+       
     }
   }
 }

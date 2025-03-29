@@ -44,9 +44,8 @@ namespace GameManager.GameObjects.Components.NpcComponents
 
     private bool CanInteract => Player.Instance.QuestGiver == this;
 
-
      
-    public Matoran()// : base()
+    public Matoran()
     {
         this.Name = "Matoran Villager";
         switch (Game1.Random.Next(0, 5))
@@ -75,7 +74,7 @@ namespace GameManager.GameObjects.Components.NpcComponents
 
     public Matoran(GameObject gameObject) : this()
     {
-        this.GameObject = gameObject;       
+               
     }
 
     protected override Npc.BehaviorState CurrentBehaviorState
@@ -130,7 +129,10 @@ namespace GameManager.GameObjects.Components.NpcComponents
         this.RemoveComponent((Component) this.speechBubbleRenderer);
     }
 
-    public static void ClearAll() => Matoran.matoran.Clear();
+    public static void ClearAll()
+    {
+        Matoran.matoran.Clear();
+    }
 
     protected override void SetupElement()
     {

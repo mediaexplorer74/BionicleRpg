@@ -13,7 +13,7 @@ namespace GameManager.GameObjects.Components.Items.Masks
     private Combat combatComponent;
     private Audio audioComponent;
 
-    public StrengthMask() //: base()
+    public StrengthMask()
     {
       this.Name = "Pakari - Mask of strength";
       this.MaskSprite = "Pakari";
@@ -23,7 +23,7 @@ namespace GameManager.GameObjects.Components.Items.Masks
 
     public StrengthMask(GameObject gameObject) : this()
     {
-       this.GameObject = gameObject;            
+                  
     }
 
     public override void ActivateMaskPower()

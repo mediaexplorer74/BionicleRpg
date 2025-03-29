@@ -17,7 +17,8 @@ namespace GameManager.GameObjects.Components
 
     public int HarakekeAmount { get; set; }
 
-    public Inventory()  { }
+    public Inventory() 
+    { }
 
     public Inventory(GameObject gameObject) : this() { }
     }

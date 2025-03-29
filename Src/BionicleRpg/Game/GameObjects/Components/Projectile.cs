@@ -21,9 +21,11 @@ namespace GameManager.GameObjects.Components
     public float LifeSpan;
     private float totalLifeTime;
 
-    public Projectile() { }
+    public Projectile() 
+    { }
 
-    public Projectile(GameObject gameObject) : this() { }
+    public Projectile(GameObject gameObject) : this() 
+    { }
 
     public void Start()
     {
@@ -35,15 +37,21 @@ namespace GameManager.GameObjects.Components
     {
       Movement component = this.GetComponent<Movement>();
       Vector2 vectorFromAngle = Tools.GetVectorFromAngle(this.Transform.Rotation - 1.57079637f);
+
       component?.Move(vectorFromAngle);
+
       if ((double) this.LifeSpan == 0.0)
         this.LifeSpan = this.animator.GetAnimFrames("Anim") / this.animator.GetAnimFPS("Anim");
+
       this.totalLifeTime += (float) Glob.GameTime.ElapsedGameTime.TotalSeconds;
       if ((double) this.totalLifeTime < (double) this.LifeSpan)
         return;
+
       if (component != null)
         component.Speed = 250f;
+
       ProjectilePool.Instance.ReleaseObject(this.SelectedElement, this.AttackType, this.GameObject);
+
       this.totalLifeTime = 0.0f;
     }
   }

@@ -13,9 +13,13 @@ namespace GameManager.GameObjects.Components
   public class Combat : Component
   {
     public float AimDirection;
+    
     public Weapon Weapon;
+    
     public Element SelectedElement;
+    
     private float elementalCost = 10f;
+
     public bool CanAttack = true;
 
     public float ElementalEnergy { get; set; } = 100f;
@@ -32,9 +36,12 @@ namespace GameManager.GameObjects.Components
 
     private float RegenTimer { get; set; }
 
-    public Combat() {}
+    public Combat() 
+    {
+    }
 
-    public Combat(GameObject gameObject) : this() { }
+    public Combat(GameObject gameObject) : this() 
+        { }
 
     public void Init(float strength, float speed)
     {
@@ -46,6 +53,7 @@ namespace GameManager.GameObjects.Components
     {
       if (!this.CanAttack)
         return;
+
       this.Weapon?.Use();
     }
 
@@ -55,17 +63,21 @@ namespace GameManager.GameObjects.Components
                 || (double) this.FireTimer > Glob.GameTime.TotalGameTime.TotalSeconds)
         return;
       this.FireTimer = (float) Glob.GameTime.TotalGameTime.TotalSeconds + this.DelayTimer;
+
       this.GetComponent<ElementalAbility>().Use();
-            this.ElementalEnergy = Math.Max(0.0f, Math.Min(this.ElementalEnergy - this.elementalCost, this.MaxElementalEnergy));
+            this.ElementalEnergy = Math.Max(0.0f, 
+                Math.Min(this.ElementalEnergy - this.elementalCost, this.MaxElementalEnergy));
     }
 
     public void Update()
     {
       if ((double) this.RegenTimer > Glob.GameTime.TotalGameTime.TotalSeconds)
         return;
+
       this.RegenTimer = (float) Glob.GameTime.TotalGameTime.TotalSeconds + this.DelayTimer;
       if ((double) Math.Abs(this.ElementalEnergy - this.MaxElementalEnergy) < 0.0099999997764825821)
         return;
+
       this.ElementalEnergy += 0.25f;
     }
   }

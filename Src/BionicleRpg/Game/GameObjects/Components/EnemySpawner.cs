@@ -24,11 +24,13 @@ namespace GameManager.GameObjects.Components
 
     public static EnemySpawner Instance { get; } = new EnemySpawner();
 
-    public EnemySpawner() { }
+    public EnemySpawner() 
+    { }
 
-    public EnemySpawner(GameObject gameObject) : this() { }
+    public EnemySpawner(GameObject gameObject) : this()
+    { }
 
-        public void Update()
+    public void Update()
     {
       Vector2? moveDir = new Vector2?(this.oldPlayerPos - Player.Instance.Transform.Position);
       this.oldPlayerPos = Player.Instance.Transform.Position;

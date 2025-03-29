@@ -14,20 +14,20 @@ namespace GameManager.GameObjects.Components.Items.Masks
     private Audio audioComponent;
 
       
-        public WaterBreathingMask()
-        {
-            this.Name = "Kaukau - Mask of water breathing";
-            this.MaskSprite = "Kaukau";
-            this.MaskUiSprite = "Icon_WaterBreathingMask";
-            this.energyRegain = 5f;
-        }
+    public WaterBreathingMask()
+    {
+        this.Name = "Kaukau - Mask of water breathing";
+        this.MaskSprite = "Kaukau";
+        this.MaskUiSprite = "Icon_WaterBreathingMask";
+        this.energyRegain = 5f;
+    }
 
-        public WaterBreathingMask(GameObject gameObject) : this()
-        {
-            this.GameObject = gameObject;           
-        }
+    public WaterBreathingMask(GameObject gameObject) : this()
+    {
+                      
+    }
 
-        public override void ActivateMaskPower()
+    public override void ActivateMaskPower()
     {
       if ((double) this.MaskEnergy < (double) this.MaxMaskEnergy / 2.0)
         return;

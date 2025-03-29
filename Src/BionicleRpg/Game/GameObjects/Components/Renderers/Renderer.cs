@@ -21,9 +21,9 @@ namespace GameManager.GameObjects.Components.Renderers
             
     }
 
-    protected Renderer(GameObject gameObject)
+    protected Renderer(GameObject gameObject) : this()
     {
-        GameObject = gameObject;
+    
     }
 
     public Color Color { get; set; } = Color.White;

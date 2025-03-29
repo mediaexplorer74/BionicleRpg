@@ -42,8 +42,10 @@ namespace GameManager.UI
       this.UIFont = Glob.Content.Load<SpriteFont>("UIFont");
       this.CreateImages();
       this.CreateButtons();
+
       for (int index = 0; index < UIComponent.UIComponents.Count; ++index)
         UIComponent.UIComponents[index].Awake();
+
       for (int index = 0; index < UIComponent.UIComponents.Count; ++index)
         UIComponent.UIComponents[index].Start();
     }
@@ -83,44 +85,44 @@ namespace GameManager.UI
       this.playerMaskIcon = new Image(this.MaskIconName, new Vector2(77f, 74f), 0.55f);
       this.playerMaskIcon.IconType = IconType.Other;
       this.playerMaskIcon.UIStateAssign = UIStateAssign.Gameplay;
+
       Image image2 = new Image("AirIcon", 
           new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 - 170.0), 
           Game1.ScreenSize.Y - 70f), 0.3f);
-
       image2.IconType = IconType.ElementIcon;
       image2.UIStateAssign = UIStateAssign.Gameplay;
+
       Image image3 = new Image("FireIcon", 
           new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 - 105.0), 
           Game1.ScreenSize.Y - 70f), 0.3f);
-
       image3.IconType = IconType.ElementIcon;
       image3.UIStateAssign = UIStateAssign.Gameplay;
+
       Image image4 = new Image("EarthIcon", 
           new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 - 33.0), 
           Game1.ScreenSize.Y - 70f), 0.3f);
-
       image4.IconType = IconType.ElementIcon;
       image4.UIStateAssign = UIStateAssign.Gameplay;
+
       Image image5 = new Image("WaterIcon", 
           new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 + 35.0), 
           Game1.ScreenSize.Y - 70f), 0.3f);
-
       image5.IconType = IconType.ElementIcon;
       image5.UIStateAssign = UIStateAssign.Gameplay;
+
       Image image6 = new Image("StoneIcon", 
           new Vector2(1064.28577f, Game1.ScreenSize.Y - 70f), 0.3f);
-
       image6.IconType = IconType.ElementIcon;
       image6.UIStateAssign = UIStateAssign.Gameplay;
+
       Image image7 = new Image("IceIcon", 
           new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 + 172.0), 
           Game1.ScreenSize.Y - 70f), 0.3f);
-
       image7.IconType = IconType.ElementIcon;
       image7.UIStateAssign = UIStateAssign.Gameplay;
+
       this.powerIcon = new Image("AirIcon", 
           new Vector2(1231.42859f, Game1.ScreenSize.Y - 70f), 0.3f);
-
       this.powerIcon.IconType = IconType.ElementPower;
       this.powerIcon.UIStateAssign = UIStateAssign.Gameplay;
 
@@ -203,8 +205,8 @@ namespace GameManager.UI
 
     private void QuitGameButton_Click(object sender, EventArgs e)
     {
-        //RnD
-        //Game1.Instance.Exit();
+       
+       Game1.Instance.Exit();       
     }
 
     private void LoadGameButton_Click(object sender, EventArgs e)

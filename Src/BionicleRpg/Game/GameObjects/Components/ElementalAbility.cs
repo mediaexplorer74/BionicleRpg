@@ -27,9 +27,11 @@ namespace GameManager.GameObjects.Components
 
     public float FireTimer { get; set; }
 
-    public ElementalAbility() { }
+    public ElementalAbility() 
+    { }
 
-    public ElementalAbility(GameObject gameObject) : this() { }
+    public ElementalAbility(GameObject gameObject) : this() 
+    { }
 
     public void Init()
     {

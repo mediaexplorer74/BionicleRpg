@@ -27,9 +27,11 @@ namespace GameManager.GameObjects.Components
 
     public float FpsMultiplier { private get; set; } = 1f;
 
-    public Animator() { }
+    public Animator()  
+    { }
 
-    public Animator(GameObject gameObject) : this() { }
+    public Animator(GameObject gameObject) : this() 
+    { }
 
     public void Start() => this.spriteRenderer = this.GetComponent<SpriteRenderer>();
 

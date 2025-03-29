@@ -94,10 +94,14 @@ namespace GameManager.GameObjects
     {
       this.ComponentsInvokeIfImplemented("OnDestroy", (object[]) null);
       GameObject.gameObjects.Remove(this);
+
       this.components.Clear();
+
       Tilemap.Tile tile = Tilemap.Instance.GetTile(this.Transform.Position);
+
       if (tile.GameObject != this)
         return;
+
       tile.GameObject = (GameObject) null;
       tile.Collider = (Collider) null;
       EdgeShadowTilemap.Instance.SetTileObject(tile.TilePos, false);
@@ -189,7 +193,9 @@ namespace GameManager.GameObjects
     {
       foreach (GameObject gameObject in GameObject.gameObjects.ToList<GameObject>())
         gameObject.IsActive = false;
+
       GameObject.gameObjects.Clear();
+
       Collider.ClearAll();
       Enemy.ClearAll();
       Matoran.ClearAll();

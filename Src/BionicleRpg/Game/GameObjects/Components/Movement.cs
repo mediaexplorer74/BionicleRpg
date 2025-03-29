@@ -7,6 +7,7 @@
 using GameManager.GameObjects.Components.Lighting;
 using GameManager.GameObjects.Components.Tilemaps;
 using Microsoft.Xna.Framework;
+using System.Diagnostics;
 
 #nullable disable
 namespace GameManager.GameObjects.Components
@@ -21,14 +22,26 @@ namespace GameManager.GameObjects.Components
 
     public bool CanMove { get; set; } = true;
 
-        public Movement() 
-        {
+    
+    public Movement() 
+    {
            
+    }
+
+    public Movement(GameObject gameObject) : this() 
+    { }
+
+    public void Move(Vector2 velocity)
+    {
+        // DEBUG
+        if (velocity.X != 0 || velocity.Y != 0)
+        {
+            //Debug.WriteLine("vel. x=" + velocity.X + ", vel. y=" + velocity.Y);
         }
 
-        public Movement(GameObject gameObject) : this() { }
 
-        public void Move(Vector2 velocity) => this.Velocity += velocity;
+        this.Velocity += velocity;
+    }
 
     public void LateUpdate()
     {

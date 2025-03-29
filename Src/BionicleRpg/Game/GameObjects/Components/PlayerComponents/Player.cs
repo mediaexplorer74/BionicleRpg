@@ -25,7 +25,7 @@ using System.Runtime.CompilerServices;
 #nullable disable
 namespace GameManager.GameObjects.Components.PlayerComponents
 {
-  public class Player : Component, IElement
+  public class Player : Component//, IElement
   {
     private SpriteRenderer toaSprite;
     private SpriteRenderer eyeSprite;
@@ -58,9 +58,9 @@ namespace GameManager.GameObjects.Components.PlayerComponents
 
     public LightEmitter Light { get; }
 
-    public Player() //: base()
+    public Player() 
     {
-      
+        
     }
 
     public Player(GameObject gameObject) : this()
@@ -122,14 +122,15 @@ namespace GameManager.GameObjects.Components.PlayerComponents
           this.CombatComponent.Weapon.AttackType, (MaskType) this.SelectedElement);
     }
 
-    private void SetupElement()
+    //RnD : What is it? Why?
+    /*private void SetupElement()
     {
       if (this.spriteRotation == null)
         this.spriteRotation = this.GetComponent<SpriteRotation>();
       this.SetElement(Element.Earth);
       this.elementalAbility = this.GameObject.AddComponent<ElementalAbility>();
       this.elementalAbility.Init();
-    }
+    }*/
 
     private void SetMask(MaskType type)
     {

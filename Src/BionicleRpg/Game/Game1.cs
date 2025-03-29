@@ -31,16 +31,18 @@ namespace GameManager
 
 
     // *********************************************************************
-    Vector2 baseScreenSize = new Vector2(1200, 768); //!
+    Vector2 baseScreenSize = new Vector2(1024, 1080 / 2); //!
 
     private Matrix globalTransformation;
     int backbufferWidth, backbufferHeight;
+
+    public static bool FirstResize = true;
     // *********************************************************************
 
 
     public static BuilderDirector BuilderDirector = new BuilderDirector();
 
-    
+    public static Game1 Instance { get; private set; }
     public static SpriteBatch FloorSpriteBatch { get; private set; }
     public static SpriteBatch FloorDecoSpriteBatch { get; private set; }
     public static SpriteBatch WallSpriteBatch { get; private set; }
@@ -48,45 +50,36 @@ namespace GameManager
     public static SpriteBatch LightingBatch { get; private set; }
     public static SpriteBatch VisionBatch { get; private set; }
 
+    public static int screenWidth = 1024;//1920;
+    public static int screenHeight = 1080 / 2;//1080;
     public static Vector2 ScreenSize { get; set; }
-    //public float DeltaTime { get; private set; }
-    //public GameTime GameTime { get; private set; }
 
     public static SpriteBatch UISpriteBatch { get; private set; }
     public static SpriteBatch MapSpriteBatch { get; private set; }
     public static Random Random { get; } = new Random();
 
-    public static int screenWidth = 1200;//1920;
-    public static int screenHeight = 768;//1080;
+   
+    
 
-    //Game1
     public Game1()
     {
-       //RnD
        this.graphics = new GraphicsDeviceManager((Game) this);
-
 
 
 #if WINDOWS_PHONE
             TargetElapsedTime = TimeSpan.FromTicks(333333);
 #endif
 
+        Game1.ScreenSize = new Vector2(screenWidth, screenHeight);
 
-      this.graphics.PreferredBackBufferHeight = 1200;//800;
-      this.graphics.PreferredBackBufferWidth = 768;//640;
-
-      Game1.ScreenSize =
-                  new Vector2( (float) this.graphics.PreferredBackBufferWidth, 
-                              (float) this.graphics.PreferredBackBufferHeight );
-        
-        //graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft
-        //            | DisplayOrientation.LandscapeRight;// | DisplayOrientation.Portrait;
+            graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft;
+        //   | DisplayOrientation.LandscapeRight;// | DisplayOrientation.Portrait;
         
         Content.RootDirectory = "Content";
         Glob.Content = Content;
 
         this.IsMouseVisible = true;
-        this.graphics.IsFullScreen = false;//true;
+        this.graphics.IsFullScreen = false; // set *false* only for better debug
 
     }//Game1
 
@@ -94,7 +87,7 @@ namespace GameManager
     // Initialize
     protected override void Initialize()
     {
-        //Instance = this;
+        Instance = this;
         
         Glob.GraphicsDevice = GraphicsDevice;
 
@@ -106,13 +99,14 @@ namespace GameManager
 
         //this.graphics.GraphicsProfile = GraphicsProfile.HiDef; // RnD
 
+        //Game1.ScreenSize = new Vector2(screenWidth, screenHeight);
+
         this.graphics.PreferredBackBufferWidth = Game1.screenWidth;
         this.graphics.PreferredBackBufferHeight = Game1.screenHeight;
 
         this.graphics.ApplyChanges();
 
         base.Initialize();
-
         
      }//Initialize
 
@@ -124,8 +118,8 @@ namespace GameManager
         backbufferWidth = GraphicsDevice.PresentationParameters.BackBufferWidth - 0; // 40
         backbufferHeight = GraphicsDevice.PresentationParameters.BackBufferHeight;
 
-        float horScaling = backbufferWidth / baseScreenSize.X;
-        float verScaling = backbufferHeight / baseScreenSize.Y;
+        float horScaling = (float)(backbufferWidth * 1f / baseScreenSize.X);
+        float verScaling = (float)(backbufferHeight *1f / baseScreenSize.Y);
 
         Vector3 screenScalingFactor = new Vector3(horScaling, verScaling, 1);
 
@@ -134,6 +128,11 @@ namespace GameManager
         System.Diagnostics.Debug.WriteLine("Screen Size - Width["
             + GraphicsDevice.PresentationParameters.BackBufferWidth + "] " +
             "Height [" + GraphicsDevice.PresentationParameters.BackBufferHeight + "]");
+
+        //Experimental
+        //screenWidth = GraphicsDevice.PresentationParameters.BackBufferWidth;
+        //screenHeight = GraphicsDevice.PresentationParameters.BackBufferHeight;
+        //Game1.ScreenSize = new Vector2(screenWidth, screenHeight);
     }
 
 
@@ -153,7 +152,7 @@ namespace GameManager
       Game1.MapSpriteBatch = new SpriteBatch(this.GraphicsDevice);
 
       // **************************************
-      //      ScalePresentationArea();
+      ScalePresentationArea();
       // ************************************** 
 
       StateManager.Instance.AddScreen((IState) new MenuState());
@@ -211,12 +210,17 @@ namespace GameManager
     protected override void Update(GameTime gameTime)
     {
       // *********************************
-      //Confirm the screen has not been resized by the user
-      //if (backbufferHeight != GraphicsDevice.PresentationParameters.BackBufferHeight ||
-      //  backbufferWidth != GraphicsDevice.PresentationParameters.BackBufferWidth)
-      //{
-      //  ScalePresentationArea();
-      //}
+      //Check First Resize  & Control time where Screen has not been resized by the user
+      if ( FirstResize 
+           ||
+           (backbufferHeight != GraphicsDevice.PresentationParameters.BackBufferHeight 
+           ||
+           backbufferWidth != GraphicsDevice.PresentationParameters.BackBufferWidth)
+           )
+      {
+        ScalePresentationArea();
+        FirstResize = false;
+      }
       // *********************************
 
 
@@ -224,8 +228,9 @@ namespace GameManager
         || Keyboard.GetState().IsKeyDown(Keys.Escape))
         this.Exit();
 
-      //Glob.DeltaTime = (float) gameTime.ElapsedGameTime.TotalSeconds;
-      //Glob.GameTime = gameTime;
+
+      Glob.DeltaTime = (float) gameTime.ElapsedGameTime.TotalSeconds;
+      Glob.GameTime = gameTime;
 
       List<GameObject> list = GameObject.GameObjects.ToList<GameObject>();
 
@@ -242,101 +247,57 @@ namespace GameManager
       base.Update(gameTime);
     }
 
-    protected /*override*/ void Draw1(GameTime gameTime)
+    protected override void Draw(GameTime gameTime)
     {
-      this.GraphicsDevice.Clear(/*Color.Black*/Color.AliceBlue);
+      this.GraphicsDevice.Clear(Color.AliceBlue);
 
-      //Game1.FloorSpriteBatch.Begin(SpriteSortMode.BackToFront,   BlendState.AlphaBlend, SamplerState.PointClamp, 
-      //    null, null,null, globalTransformation);
+      Game1.FloorSpriteBatch.Begin(SpriteSortMode.BackToFront,   BlendState.AlphaBlend, SamplerState.PointClamp, 
+          null, null,null, globalTransformation);
 
-      //  Game1.FloorDecoSpriteBatch.Begin(SpriteSortMode.BackToFront,   BlendState.AlphaBlend, SamplerState.PointClamp,
-      //  null, null, null, globalTransformation);
+        Game1.FloorDecoSpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp,
+        null, null, null, globalTransformation);
 
-      //  Game1.FloorShadowBatch.Begin(SpriteSortMode.BackToFront,  BlendState.AlphaBlend, SamplerState.PointClamp,
-      //  null, null, null, globalTransformation);
+        Game1.FloorShadowBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend,
+            SamplerState.AnisotropicClamp,
+        null, null, null, globalTransformation);
 
-      //  Game1.WallSpriteBatch.Begin(SpriteSortMode.BackToFront,     BlendState.AlphaBlend, SamplerState.PointClamp,
-      //  null, null, null, globalTransformation);
+        Game1.WallSpriteBatch.Begin(SpriteSortMode.BackToFront,  BlendState.AlphaBlend, SamplerState.PointClamp,
+        null, null, null, globalTransformation);
 
-      //  Game1.VisionBatch.Begin(SpriteSortMode.BackToFront,  BlendState.AlphaBlend, SamplerState.AnisotropicClamp,
-      //    null, null, null, globalTransformation);
+        Game1.VisionBatch.Begin(SpriteSortMode.BackToFront,  BlendState.AlphaBlend, SamplerState.AnisotropicClamp,
+          null, null, null, globalTransformation);
 
-      //  Game1.UISpriteBatch.Begin(SpriteSortMode.BackToFront,  BlendState.AlphaBlend, SamplerState.LinearClamp,
-      //    null, null, null, globalTransformation);
+        //RnD
+        Game1.UISpriteBatch.Begin(/*SpriteSortMode.BackToFront*/SpriteSortMode.Deferred,  
+            BlendState.AlphaBlend, SamplerState.LinearClamp,  null, null, null, globalTransformation);
 
-      //  Game1.MapSpriteBatch.Begin(SpriteSortMode.BackToFront,  BlendState.AlphaBlend, SamplerState.PointClamp,
-      //    null, null, null, globalTransformation);
+        Game1.MapSpriteBatch.Begin(SpriteSortMode.BackToFront,  BlendState.AlphaBlend, 
+            SamplerState.PointClamp,  null, null, null, globalTransformation);
 
-      /*  Game1.LightingBatch.Begin(blendState: new BlendState()
+        Game1.LightingBatch.Begin(SpriteSortMode.BackToFront, new BlendState()
         {
-        ColorBlendFunction = BlendFunction.Add,
-        ColorSourceBlend = Blend.DestinationColor,
-        ColorDestinationBlend = Blend.Zero
-        }, samplerState: SamplerState.AnisotropicClamp);*/
+            ColorBlendFunction = BlendFunction.Add,
+            ColorSourceBlend = Blend.DestinationColor,
+            ColorDestinationBlend = Blend.Zero
+        }, 
+        SamplerState.AnisotropicClamp, null,null,null, globalTransformation);
 
-      //  for (int index = GameObject.GameObjects.Count - 1; index >= 0; --index)
-      //  GameObject.GameObjects[index].Draw(Game1.WallSpriteBatch);
+        for (int index = GameObject.GameObjects.Count - 1; index >= 0; --index)
+        GameObject.GameObjects[index].Draw(Game1.WallSpriteBatch);
 
         StateManager.Instance.Draw(Game1.WallSpriteBatch);
         UIManager.Instance.Draw(Game1.UISpriteBatch);
 
-      //  Game1.FloorSpriteBatch.End();
-      //  Game1.FloorDecoSpriteBatch.End();
-      //  Game1.FloorShadowBatch.End();
-      //  Game1.WallSpriteBatch.End();
-      //  Game1.LightingBatch.End();
-      //  Game1.VisionBatch.End();
-      //  Game1.UISpriteBatch.End();
-      //  Game1.MapSpriteBatch.End();            
+        Game1.FloorSpriteBatch.End();
+        Game1.FloorDecoSpriteBatch.End();
+        Game1.FloorShadowBatch.End();
+        Game1.WallSpriteBatch.End();
+        Game1.LightingBatch.End();
+        Game1.VisionBatch.End();
+        Game1.UISpriteBatch.End();
+        Game1.MapSpriteBatch.End();            
 
         base.Draw(gameTime);
-    }
-        protected override void Draw(GameTime gameTime)
-        {
-            this.GraphicsDevice.Clear(Color.Black);
-
-            Game1.FloorSpriteBatch.Begin(SpriteSortMode.BackToFront, samplerState: SamplerState.PointClamp);
-
-            Game1.FloorDecoSpriteBatch.Begin(SpriteSortMode.BackToFront, samplerState: SamplerState.PointClamp);
-
-            Game1.FloorShadowBatch.Begin(samplerState: SamplerState.AnisotropicClamp);
-
-            Game1.WallSpriteBatch.Begin(SpriteSortMode.BackToFront, samplerState: SamplerState.PointClamp);
-
-            Game1.VisionBatch.Begin(samplerState: SamplerState.AnisotropicClamp);
-
-            Game1.UISpriteBatch.Begin(samplerState: SamplerState.LinearClamp);
-
-            Game1.MapSpriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
-            Game1.LightingBatch.Begin(blendState: new BlendState()
-            {
-                ColorBlendFunction = BlendFunction.Add,
-                ColorSourceBlend = Blend.DestinationColor,
-                ColorDestinationBlend = Blend.Zero
-            }, samplerState: SamplerState.AnisotropicClamp);
-
-            for (int index = GameObject.GameObjects.Count - 1; index >= 0; --index)
-            {
-                GameObject.GameObjects[index].Draw(Game1.WallSpriteBatch);
-            }
-
-
-            StateManager.Instance.Draw(Game1.WallSpriteBatch);
-
-            UIManager.Instance.Draw(Game1.UISpriteBatch);
-
-            Game1.FloorSpriteBatch.End();
-            Game1.FloorDecoSpriteBatch.End();
-            Game1.FloorShadowBatch.End();
-            Game1.WallSpriteBatch.End();
-            Game1.LightingBatch.End();
-            Game1.VisionBatch.End();
-            Game1.UISpriteBatch.End();
-            Game1.MapSpriteBatch.End();
-
-            base.Draw(gameTime);
-        }
-
-    }
+    }//Draw
+  }
 }

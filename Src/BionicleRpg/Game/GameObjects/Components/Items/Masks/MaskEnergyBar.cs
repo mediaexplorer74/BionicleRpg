@@ -20,16 +20,16 @@ namespace GameManager.GameObjects.Components.Items.Masks
     private Vector2 position;
     private Rectangle rct;
 
-        public MaskEnergyBar()
-        {
-        }
+    public MaskEnergyBar() 
+    {
+    }
 
-        public MaskEnergyBar(GameObject gameObject) : this()
-        {
-            this.GameObject = gameObject;           
-        }
+    public MaskEnergyBar(GameObject gameObject) : this()
+    {
+                  
+    }
 
-        public void Awake()
+    public void Awake()
     {
       this.player = this.GetComponent<Player>();
       this.mask = Player.Instance.MaskComponent;

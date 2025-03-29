@@ -15,7 +15,7 @@ namespace GameManager.GameObjects.Components.Items.Masks
   {
     private Audio audioComponent;
 
-    public XrayMask()
+    public XrayMask() 
     {
         this.Name = "Akaku - Xray mask";
         this.MaskSprite = "Akaku";
@@ -26,7 +26,7 @@ namespace GameManager.GameObjects.Components.Items.Masks
 
     public XrayMask(GameObject gameObject): this ()
     {
-            this.GameObject = gameObject;
+        
     }
 
     public override void ActivateMaskPower()

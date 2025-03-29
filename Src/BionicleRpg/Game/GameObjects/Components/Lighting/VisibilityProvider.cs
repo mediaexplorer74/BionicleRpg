@@ -16,13 +16,13 @@ namespace GameManager.GameObjects.Components.Lighting
     private const int visionRange = 20;
     private Tilemap.Tile oldTile;
 
-        public VisibilityProvider() //: base()
-        { }
+    public VisibilityProvider() 
+    { }
 
-        public VisibilityProvider(GameObject gameObject) : this()//: base(gameObject) 
-        { }
+    public VisibilityProvider(GameObject gameObject) : this()//: base(gameObject) 
+    { }
 
-        public void Update()
+    public void Update()
     {
       Tilemap.Tile tile = Tilemap.Instance.GetTile(this.Transform.Position);
       if (tile == null)

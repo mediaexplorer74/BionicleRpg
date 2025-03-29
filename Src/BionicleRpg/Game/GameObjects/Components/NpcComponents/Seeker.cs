@@ -9,6 +9,7 @@ using GameManager.Map;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading;
 
 #nullable disable
@@ -22,52 +23,35 @@ namespace GameManager.GameObjects.Components.NpcComponents
     private float fleeDist = -1f;
     private Seeker.OnPathfindCompleteDelegate callback;
 
-    public Seeker()// : base()
+    public Seeker() 
     {
-        // Initialize with gameObject if needed
-        //Seeker.Instance = this;
     }
+
     public Seeker(GameObject gameObject) : this()
     {
-        this.GameObject = gameObject;
+        
     }
 
     public void StartPath(Vector2 origin, Vector2 goal, 
                        Seeker.OnPathfindCompleteDelegate callback)
     {
-      //Thread pathfindingThread = this.pathfindingThread;
-     // if ((pathfindingThread != null ? (pathfindingThread.IsAlive ? 1 : 0) : 0) != 0)
-     //  return;
+     
       this.origin = origin;
       this.goal = goal;
       this.fleeDist = -1f;
       this.callback = callback;
-
-        //Plan A
-        //this.pathfindingThread = new Thread(new ParameterizedThreadStart(Seeker.ThreadUpdate))
-        //{
-        //  IsBackground = true
-        //};
-        //this.pathfindingThread.Start((object) this);
-
-            // Plan B
-        Seeker.ThreadUpdate((object)this);
+       
+       Seeker.ThreadUpdate((object)this);
     }
 
     public void StartPath( Vector2 origin, float fleeDist,  Seeker.OnPathfindCompleteDelegate callback)
     {
-      //Thread pathfindingThread = this.pathfindingThread;
-      //if ((pathfindingThread != null ? (pathfindingThread.IsAlive ? 1 : 0) : 0) != 0)
-      //  return;
+     
       this.origin = origin;
       this.fleeDist = fleeDist;
       this.callback = callback;
-            //this.pathfindingThread = new Thread(new ParameterizedThreadStart(Seeker.ThreadUpdate))
-            //{
-            //  IsBackground = true
-            //};
-            //this.pathfindingThread.Start((object) this);
-            Seeker.ThreadUpdate((object)this);
+           
+       Seeker.ThreadUpdate((object)this);
     }
 
     private static void ThreadUpdate(object obj)
@@ -84,6 +68,7 @@ namespace GameManager.GameObjects.Components.NpcComponents
       }
       catch (Exception ex)
       {
+        Debug.WriteLine("[!] seeker.callback(path) warning: " + ex.Message);
         seeker.callback((ReadOnlyCollection<Vector2Int>) null);
       }
     }

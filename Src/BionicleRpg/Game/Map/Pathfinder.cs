@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 #nullable disable
 namespace GameManager.Map
@@ -43,9 +44,20 @@ namespace GameManager.Map
           break;
         }
         Tilemap.Tile tile = Tilemap.Instance.Tiles[pos];
+
         foreach (Tilemap.Tile walkableNeighbour in tile.WalkableNeighbours)
         {
-          int num = dictionary2[tile.TilePos] + walkableNeighbour.Cost;
+           int num = 510000; //RnD
+
+           try
+           {
+               num = dictionary2[tile.TilePos] + walkableNeighbour.Cost;
+           }
+           catch (Exception ex)
+           {
+              Debug.WriteLine("[ex] PathFinder error: " + ex.Message + " [" + ex.StackTrace + "]");
+           }
+
           if (num <= 500000)
           {
             if (!dictionary2.ContainsKey(walkableNeighbour.TilePos) || num < dictionary2[walkableNeighbour.TilePos])

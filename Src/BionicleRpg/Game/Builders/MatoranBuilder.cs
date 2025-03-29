@@ -23,6 +23,9 @@ namespace GameManager.Builders
     {
     }
 
+    public MatoranBuilder(GameObject gameObject) : this()
+    { }
+
     public GameObject NewMatoran(Vector2 pos)
     {
       GameObject gameObject = new GameObject();
@@ -43,6 +46,7 @@ namespace GameManager.Builders
       spriteRenderer.Sprite = Glob.Content.Load<Texture2D>("FikouFloorShadow");
       spriteRenderer.SpriteBatchOverride = Game1.FloorSpriteBatch;
       spriteRenderer.LayerPosOffset = 100f;
+
       Animation animation1 = new Animation("Idle", 10f, new string[1]
       {
         "Matoran_Idle_F01"
@@ -52,11 +56,14 @@ namespace GameManager.Builders
         "Matoran_Walk_F01",
         "Matoran_Walk_F02"
       }, new bool?(true));
+
       animator.Start();
       animator.AddAnimation(animation1);
       animator.AddAnimation(animation2);
       animator.PlayAnimation("Idle");
+
       gameObject.Transform.Scale = 0.5f;
+
       return gameObject;
     }
   }

@@ -21,7 +21,7 @@ namespace GameManager.GameObjects.Components
 
         public bool IsInvincible { get; set; }
 
-        public Health()
+        public Health() 
         {
             this.weaknesses.Add(Element.Fire, Element.Ice);
             this.weaknesses.Add(Element.Ice, Element.Fire);
@@ -33,7 +33,7 @@ namespace GameManager.GameObjects.Components
 
         public Health(GameObject gameObject) : this()
         {
-            //Health.Instance = this;
+           
         }
                
 
@@ -55,14 +55,20 @@ namespace GameManager.GameObjects.Components
         {
             if ((double)this.timer > Glob.GameTime.TotalGameTime.TotalSeconds)
                 return this.health;
+
             this.timer = (float)Glob.GameTime.TotalGameTime.TotalSeconds + this.delayTimer;
+
             if (this.GameObject.GetComponent<Combat>() == null)
                 return 0.0f;
+
             if (this.IsInvincible)
                 return this.health;
+
             this.GameObject.GetComponent<Audio>()?.Play("Object collision");
             this.ownerElement = this.GameObject.GetComponent<Combat>().SelectedElement;
+
             baseDamage = this.ModifyDamage(baseDamage, damageElement);
+
             return this.health = Clamp(this.health - baseDamage, 0.0f, this.maxHealth);
         }
 
@@ -70,8 +76,10 @@ namespace GameManager.GameObjects.Components
         {
             Element? nullable1 = damageElement;
             Element ownerElement = this.ownerElement;
+
             if (nullable1.GetValueOrDefault() == ownerElement & nullable1.HasValue)
                 return baseDamage / 3f;
+
             int weakness = (int)this.weaknesses[this.ownerElement];
             Element? nullable2 = damageElement;
             int valueOrDefault = (int)nullable2.GetValueOrDefault();

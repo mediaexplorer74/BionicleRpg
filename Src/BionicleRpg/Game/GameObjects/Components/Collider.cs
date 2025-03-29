@@ -39,9 +39,10 @@ namespace GameManager.GameObjects.Components
     public void OnDestroy() => Collider.colliders.Remove(this);
 
 
-    public Collider()
+    public Collider() 
     {
-       this.IsEnabled = false;
+        //RnD
+        this.IsEnabled = false;
     }
 
     public Collider(GameObject gameObject) : this() 
@@ -66,10 +67,21 @@ namespace GameManager.GameObjects.Components
 
     public static void DrawRectangle(Rectangle collisionBox, SpriteBatch spriteBatch)
     {
-      Rectangle destinationRectangle1 = new Rectangle(collisionBox.X - (int) Player.Instance.Transform.Position.X + (int) Game1.ScreenSize.X / 2, collisionBox.Y - (int) Player.Instance.Transform.Position.Y + (int) Game1.ScreenSize.Y / 2, collisionBox.Width, 1);
-      Rectangle destinationRectangle2 = new Rectangle(collisionBox.X - (int) Player.Instance.Transform.Position.X + (int) Game1.ScreenSize.X / 2, collisionBox.Y + collisionBox.Height - (int) Player.Instance.Transform.Position.Y + (int) Game1.ScreenSize.Y / 2, collisionBox.Width, 1);
-      Rectangle destinationRectangle3 = new Rectangle(collisionBox.X - (int) Player.Instance.Transform.Position.X + (int) Game1.ScreenSize.X / 2, collisionBox.Y - (int) Player.Instance.Transform.Position.Y + (int) Game1.ScreenSize.Y / 2, 1, collisionBox.Height);
-      Rectangle destinationRectangle4 = new Rectangle(collisionBox.X + collisionBox.Width - (int) Player.Instance.Transform.Position.X + (int) Game1.ScreenSize.X / 2, collisionBox.Y - (int) Player.Instance.Transform.Position.Y + (int) Game1.ScreenSize.Y / 2, 1, collisionBox.Height);
+      Rectangle destinationRectangle1 = new Rectangle(collisionBox.X - 
+          (int) Player.Instance.Transform.Position.X + (int) Game1.ScreenSize.X / 2, collisionBox.Y - 
+          (int) Player.Instance.Transform.Position.Y + (int) Game1.ScreenSize.Y / 2, collisionBox.Width, 1);
+      Rectangle destinationRectangle2 = new Rectangle(collisionBox.X - 
+          (int) Player.Instance.Transform.Position.X + (int) Game1.ScreenSize.X / 2, collisionBox.Y + 
+          collisionBox.Height - (int) Player.Instance.Transform.Position.Y + (int) Game1.ScreenSize.Y / 2, collisionBox.Width, 1);
+
+      Rectangle destinationRectangle3 = new Rectangle(collisionBox.X - 
+          (int) Player.Instance.Transform.Position.X + (int) Game1.ScreenSize.X / 2, collisionBox.Y - 
+          (int) Player.Instance.Transform.Position.Y + (int) Game1.ScreenSize.Y / 2, 1, collisionBox.Height);
+
+      Rectangle destinationRectangle4 = new Rectangle(collisionBox.X + 
+          collisionBox.Width - (int) Player.Instance.Transform.Position.X + (int) Game1.ScreenSize.X / 2, collisionBox.Y - 
+          (int) Player.Instance.Transform.Position.Y + (int) Game1.ScreenSize.Y / 2, 1, collisionBox.Height);
+
       spriteBatch.Draw(Collider.texture, destinationRectangle1, new Rectangle?(), Color.Red, 0.0f, Vector2.Zero, SpriteEffects.None, 1f);
       spriteBatch.Draw(Collider.texture, destinationRectangle2, new Rectangle?(), Color.Red, 0.0f, Vector2.Zero, SpriteEffects.None, 1f);
       spriteBatch.Draw(Collider.texture, destinationRectangle4, new Rectangle?(), Color.Red, 0.0f, Vector2.Zero, SpriteEffects.None, 1f);
@@ -105,6 +117,9 @@ namespace GameManager.GameObjects.Components
         this.Transform.Translate(new Vector2((float) -Rectangle.Intersect(this.CollisionBox, other.CollisionBox).Width, 0.0f));
     }
 
-    public static void ClearAll() => Collider.colliders.Clear();
+    public static void ClearAll()
+    {
+        Collider.colliders.Clear();
+    }
   }
 }

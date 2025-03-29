@@ -19,7 +19,7 @@ namespace GameManager.GameObjects.Components.Items.Masks
     private Animation ShieldAnim;
     private Audio audioComponent;
 
-    public ShieldMask()
+    public ShieldMask() 
     {
       this.Name = "Hau - Mask of shielding";
       this.MaskSprite = "Hau";

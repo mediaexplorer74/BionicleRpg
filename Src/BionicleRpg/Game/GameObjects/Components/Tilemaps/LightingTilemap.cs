@@ -22,6 +22,7 @@ namespace GameManager.GameObjects.Components.Tilemaps
 
     public LightColor Darkness { get; private set; }
 
+
     public LightingTilemap() 
     {
         LightingTilemap.Instance = this;
@@ -29,9 +30,7 @@ namespace GameManager.GameObjects.Components.Tilemaps
 
     public LightingTilemap(GameObject gameObject) : this()
     {
-        this.GameObject = gameObject;
-        LightingTilemap.Instance = this;
-
+      LightingTilemap.Instance = this;
       if (StateManager.Instance.CurrentState is DungeonState)
         this.Darkness = new LightColor(0.2f, 0.2f, 0.3f);
       else

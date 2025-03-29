@@ -15,7 +15,7 @@ namespace GameManager.GameObjects.Components.Items.Masks
     private Movement movementComponent;
     private Audio audioComponent;
 
-    public SpeedMask() //: base()
+    public SpeedMask() 
     {
         this.Name = "Kakama - Mask of speed";
         this.MaskSprite = "Kakama";
@@ -27,7 +27,7 @@ namespace GameManager.GameObjects.Components.Items.Masks
     
     public SpeedMask(GameObject gameObject) : this()
     {
-            this.GameObject = gameObject;
+         
     }
 
     public override void ActivateMaskPower()

@@ -28,8 +28,7 @@ namespace GameManager.GameObjects.Components.Tilemaps
 
     public EdgeShadowTilemap(GameObject gameObject) : this()
     {
-        this.GameObject = gameObject;
-        EdgeShadowTilemap.Instance = this;
+       
     }
 
     public void Awake()

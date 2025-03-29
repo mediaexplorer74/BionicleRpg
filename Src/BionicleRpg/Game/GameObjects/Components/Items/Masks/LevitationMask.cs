@@ -20,28 +20,22 @@ namespace GameManager.GameObjects.Components.Items.Masks
     private Vector2 originOffset;
     private Audio audioComponent;
 
-    public LevitationMask()
+    public LevitationMask() 
     {
-      this.Name = "Miru - Mask of levitation";
-      this.MaskSprite = "Miru";
-      this.MaskUiSprite = "Icon_LevitationMask";
-      this.MaskEnergyConsumption = 15f;
-      this.energyRegain = 3f;
-      this.MinMaskEnergy = this.MaskEnergyConsumption;
+      
     }
 
-        public LevitationMask(GameObject gameObject) : this()
-        {
-            this.GameObject = gameObject; //RnD
-            this.Name = "Miru - Mask of levitation";
-            this.MaskSprite = "Miru";
-            this.MaskUiSprite = "Icon_LevitationMask";
-            this.MaskEnergyConsumption = 15f;
-            this.energyRegain = 3f;
-            this.MinMaskEnergy = this.MaskEnergyConsumption;
-        }
+    public LevitationMask(GameObject gameObject) : this()
+    {
+        this.Name = "Miru - Mask of levitation";
+        this.MaskSprite = "Miru";
+        this.MaskUiSprite = "Icon_LevitationMask";
+        this.MaskEnergyConsumption = 15f;
+        this.energyRegain = 3f;
+        this.MinMaskEnergy = this.MaskEnergyConsumption;
+    }
 
-        public override void ActivateMaskPower()
+    public override void ActivateMaskPower()
     {
       if ((double) this.MaskEnergy < (double) this.MinMaskEnergy)
         return;

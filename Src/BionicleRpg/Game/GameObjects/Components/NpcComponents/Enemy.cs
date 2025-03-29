@@ -30,31 +30,28 @@ namespace GameManager.GameObjects.Components.NpcComponents
 
     public static EventHandler OnEnemyDeath { get; set; }
 
-    //public Enemy()
-    //{
-    //  this.Name = "Fikou Spider";
-    //  Enemy.enemies.Add(this);
-    //}
+    
+    public Enemy() 
+    {
+        this.Name = "Fikou Spider";
+        Enemy.enemies.Add(this);
+    }
 
-        public Enemy() //: base()
-        {
-            this.Name = "Fikou Spider";
-            Enemy.enemies.Add(this);
-        }
+    public Enemy(GameObject gameObject) : this()
+    {
+        
+    }
 
-        public Enemy(GameObject gameObject) : this()
-        {
-            // Initialize with gameObject if needed
-            this.GameObject = gameObject;
-        }
-
-        protected override void InitializeBehaviorValues()
+    protected override void InitializeBehaviorValues()
     {
       this.braveness = 1f;
       base.InitializeBehaviorValues();
     }
 
-    public static void ClearAll() => Enemy.enemies.Clear();
+    public static void ClearAll()
+    {
+        Enemy.enemies.Clear();
+    }
 
     protected override void Death()
     {

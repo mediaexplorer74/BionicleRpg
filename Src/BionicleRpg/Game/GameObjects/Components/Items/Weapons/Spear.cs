@@ -11,7 +11,8 @@ namespace GameManager.GameObjects.Components.Items.Weapons
 {
   public class Spear : Weapon
   {
-    public Spear()
+    
+    public Spear() 
     {
       this.Name = "Elemental Spear";
       this.Damage = 2f;
@@ -23,7 +24,7 @@ namespace GameManager.GameObjects.Components.Items.Weapons
 
     public Spear(GameObject gameObject) : this()
     {
-        this.GameObject = gameObject;
+        
     }
   }
 }

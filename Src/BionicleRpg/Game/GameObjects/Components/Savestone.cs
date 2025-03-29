@@ -18,7 +18,8 @@ namespace GameManager.GameObjects.Components
 
     public int Seed { get; set; }
 
-    public Savestone() { }
+    public Savestone() 
+    { }
 
     public Savestone(GameObject gameObject) : this()
     {

@@ -92,8 +92,7 @@ namespace GameManager.GameObjects.Components.Tilemaps
 
     public Tilemap(GameObject gameObject) : this()
     {
-      this.GameObject = gameObject;
-      Tilemap.Instance = this;
+      
     }
 
     public Tilemap.Tile GetTile(Vector2 worldPos)
@@ -136,10 +135,12 @@ namespace GameManager.GameObjects.Components.Tilemaps
     private List<Tilemap.Decoration> LoadBiomeDecorations(string biomeName)
     {
       List<Tilemap.Decoration> decorations = new List<Tilemap.Decoration>();
+
       int num = 0;
       do
-        ;
+      { }
       while (this.LoadDecoration(biomeName, num++, decorations));
+
       return decorations;
     }
 

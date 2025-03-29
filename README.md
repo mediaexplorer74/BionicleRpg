@@ -8,13 +8,20 @@ Use mask powers to find new ways to explore the world around you. Visit all the 
 
 Help the Matoran villagers by accepting quests. Venture out into the world to gather materials, clear dungeons or defeat enemies." 
 
+## My 2 cents
+- Pathfinder repaired via AI in MS Copilot (thanks to VS 2022 Preview))
+- Player movements fixed
+- Near weapon (left button click) activated
+- Semi-god mode explored (I detected player's death not realized by original dev team, hehe)
+- Screen scaling is ok for now 
+
 ## Controls
 - WASD: Move
 - LMB: Normal attack
 - RMB: Elemental attack
 - Left Shift: Mask power
-- 1-6: Change character / mask
-- M: Map
+- 1-6: Change character / mask (idk yet whats up... find the names of mask modes in src code)))
+- M: Map (Up key- increase map scale, Down key - decrease scale)
 - F: Interact
 
 
@@ -28,7 +35,9 @@ Help the Matoran villagers by accepting quests. Venture out into the world to ga
 
 
 ## ToDo
+- Explore all code once again
 - Realize some more complex game process ;)
+- Fix 100500 bugs after dirty R.E. (constructors, items, sting builders, etc.)
 
 
 ## Reference(s)

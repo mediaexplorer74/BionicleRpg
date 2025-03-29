@@ -19,11 +19,13 @@ namespace GameManager.GameObjects.Components
 
     public int Seed { get; set; }
 
-        public DungeonEntrance() { }
+    public DungeonEntrance() 
+    { }
 
-        public DungeonEntrance(GameObject gameObject) : this() { }
+    public DungeonEntrance(GameObject gameObject) : this() 
+    { }
 
-        public void Start() => this.Transform.Scale = 0.75f;
+    public void Start() => this.Transform.Scale = 0.75f;
 
     public void Enter() => StateManager.Instance.AddScreen((IState) new DungeonState(this));
 

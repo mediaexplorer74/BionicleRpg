@@ -20,16 +20,14 @@ namespace GameManager.GameObjects.Components.NpcComponents
     private Vector2 position;
     private Rectangle rct;
 
-    public Healthbar() //: base()
+    public Healthbar() 
     {
-        // Initialize with gameObject if needed
-        //Healthbar.Instance = this;
+        
     }
 
     public Healthbar(GameObject gameObject) : this()
     {   
-            // Initialize with gameObject if needed
-            this.GameObject = gameObject;
+        
     }
 
     public void Awake()
@@ -50,7 +48,10 @@ namespace GameManager.GameObjects.Components.NpcComponents
 
     public void LastUpdate()
     {
-      this.position = new Vector2((float) ((double) this.npc.Transform.Position.X - (double) Player.Instance.Transform.Position.X + (double) Game1.ScreenSize.X / 2.0) - (float) (this.healthSprite.Width / 2), (float) ((double) this.npc.Transform.Position.Y - (double) Player.Instance.Transform.Position.Y + (double) Game1.ScreenSize.Y / 2.0 - 40.0));
+      this.position = new Vector2((float) ((double) this.npc.Transform.Position.X 
+          - (double) Player.Instance.Transform.Position.X + (double) Game1.ScreenSize.X / 2.0) 
+          - (float) (this.healthSprite.Width / 2), (float) ((double) this.npc.Transform.Position.Y 
+          - (double) Player.Instance.Transform.Position.Y + (double) Game1.ScreenSize.Y / 2.0 - 40.0));
       this.rct.Width = (int) ((double) this.healthSprite.Width / (double) this.health.MaxHealth * (double) this.health.CurrentHealth);
     }
   }

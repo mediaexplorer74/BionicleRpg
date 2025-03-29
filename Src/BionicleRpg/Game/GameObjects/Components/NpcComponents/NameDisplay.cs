@@ -17,15 +17,14 @@ namespace GameManager.GameObjects.Components.NpcComponents
     private Npc npc;
     private Vector2 position;
 
-    public NameDisplay() //: base()
+    public NameDisplay() 
     {
-        // Initialize with gameObject if needed
-        //NameDisplay.Instance = this;
+        
     }
     public NameDisplay(GameObject gameObject) : this()
     {
-            this.GameObject = gameObject;
-     }
+        
+    }
         
     public void Awake() => this.npc = this.GetComponent<Npc>();
 

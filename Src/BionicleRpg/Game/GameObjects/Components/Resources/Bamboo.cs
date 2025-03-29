@@ -14,11 +14,12 @@ namespace GameManager.GameObjects.Components.Resources
   {
     public static EventHandler OnResourceGathered { get; set; }
 
-    public Bamboo() { }
+    public Bamboo() 
+    { }
 
     public Bamboo(GameObject gameObject) : this()
     {
-       this.GameObject = gameObject;
+       
     }
 
         public override void ExtractResource()

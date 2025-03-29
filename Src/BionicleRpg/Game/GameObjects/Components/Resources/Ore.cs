@@ -14,11 +14,12 @@ namespace GameManager.GameObjects.Components.Resources
   {
     public static EventHandler OnResourceGathered { get; set; }
 
-    public Ore() { }
+    public Ore() 
+    { }
 
     public Ore(GameObject gameObject) : this()
     {
-            this.GameObject = gameObject;
+        
     }
 
     public override void ExtractResource()

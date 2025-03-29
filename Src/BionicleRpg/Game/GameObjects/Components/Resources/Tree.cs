@@ -18,7 +18,6 @@ namespace GameManager.GameObjects.Components.Resources
 
     public Tree(GameObject gameObject) : this()
     {
-        this.GameObject = gameObject;
     }
 
     public override void ExtractResource()

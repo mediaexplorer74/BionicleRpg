@@ -11,9 +11,11 @@ namespace GameManager.GameObjects.Components
   {
     public int RotationId { get; private set; } = 1;
 
-    public SpriteRotation() { }
+    public SpriteRotation()  
+    { }
 
-    public SpriteRotation(GameObject gameObject) : this() { }
+    public SpriteRotation(GameObject gameObject) : this() 
+    { }
 
     public void Update()
     {

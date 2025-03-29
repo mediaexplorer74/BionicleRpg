@@ -20,7 +20,7 @@ namespace GameManager.GameObjects.Components.PlayerComponents
     private Rectangle healthRct;
     private Rectangle elementalRct;
 
-    public PlayerStats() 
+    public PlayerStats()
     { }
 
     public PlayerStats(GameObject gameObject) : this()

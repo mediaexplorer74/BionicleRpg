@@ -168,7 +168,7 @@
     <Compile Include="Game\GameObjects\Components\Combat.cs" />
     <Compile Include="Game\GameObjects\Components\Component.cs" />
     <Compile Include="Game\GameObjects\Components\DungeonEntrance.cs" />
-    <Compile Include="Game\GameObjects\Components\ElementEnum.cs" />
+    <Compile Include="Game\GameObjects\Components\Element.cs" />
     <Compile Include="Game\GameObjects\Components\ElementalAbility.cs" />
     <Compile Include="Game\GameObjects\Components\EnemySpawner.cs" />
     <Compile Include="Game\GameObjects\Components\Forge.cs" />

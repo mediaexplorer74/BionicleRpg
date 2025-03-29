@@ -11,12 +11,12 @@ using Microsoft.Xna.Framework;
 namespace GameManager.Database
 {
   public class SavegameData(GameObject gameObject)
-    {
-        public SavegameData() : this(null)
-        {
-        }
+  {
+     public SavegameData() : this(null)
+     {
+     }
 
-        public int ID { get; set; }
+    public int ID { get; set; }
 
     public int WorldSeed { get; set; }
 
@@ -25,6 +25,7 @@ namespace GameManager.Database
     public float Energy { get; set; }
 
     public Vector2 WorldPosition { get; set; }
+
     public GameObject GameObject { get; } = gameObject;
     }
 }
