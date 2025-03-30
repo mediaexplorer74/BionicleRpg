@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components
 {
   public class Collider : Component

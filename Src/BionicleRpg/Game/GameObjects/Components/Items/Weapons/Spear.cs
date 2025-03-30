@@ -6,7 +6,7 @@
 
 using GameManager.Factories;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.Items.Weapons
 {
   public class Spear : Weapon

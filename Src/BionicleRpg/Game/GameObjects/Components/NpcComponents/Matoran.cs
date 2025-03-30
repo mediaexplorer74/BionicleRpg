@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.NpcComponents
 {
   public class Matoran : Npc

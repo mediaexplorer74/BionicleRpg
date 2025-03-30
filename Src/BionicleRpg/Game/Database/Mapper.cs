@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 //using System.Data.SQLite;
 
-#nullable disable
+
 namespace GameManager.Database
 {
   public class Mapper

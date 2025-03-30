@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.PlayerComponents
 {
   public class PlayerController : Component

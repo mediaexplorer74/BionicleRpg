@@ -8,7 +8,7 @@ using GameManager.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-#nullable disable
+
 namespace GameManager.GameObjects.UI
 {
   public class Image : UIComponent
@@ -25,7 +25,6 @@ namespace GameManager.GameObjects.UI
 
     public override void Awake()
     {
-      //RND
       this.Sprite = Glob.Content.Load<Texture2D>(this.spriteName);
       this.origin = new Vector2((float) (this.Sprite.Width / 2), (float) (this.Sprite.Height / 2));
     }

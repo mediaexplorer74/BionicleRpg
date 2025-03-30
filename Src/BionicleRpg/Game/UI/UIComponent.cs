@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-#nullable disable
+
 namespace GameManager.UI
 {
   public abstract class UIComponent

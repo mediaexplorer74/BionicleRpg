@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components
 {
   public class Animator : Component

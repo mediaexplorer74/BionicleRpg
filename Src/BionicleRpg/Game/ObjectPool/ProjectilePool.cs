@@ -9,7 +9,7 @@ using GameManager.GameObjects;
 using GameManager.GameObjects.Components;
 using Microsoft.Xna.Framework;
 
-#nullable disable
+
 namespace GameManager.ObjectPool
 {
   public class ProjectilePool : GameManager.ObjectPool.ObjectPool

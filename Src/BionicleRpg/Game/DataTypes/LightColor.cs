@@ -6,7 +6,7 @@
 
 using Microsoft.Xna.Framework;
 
-#nullable disable
+
 namespace GameManager.DataTypes
 {
   public struct LightColor(float r, float g, float b)

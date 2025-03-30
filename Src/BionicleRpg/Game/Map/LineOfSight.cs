@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Runtime.CompilerServices;
 
-#nullable disable
+
 namespace GameManager.Map
 {
   public static class LineOfSight

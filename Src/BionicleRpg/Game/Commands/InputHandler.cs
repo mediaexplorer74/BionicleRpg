@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
-#nullable disable
+
 namespace GameManager.Commands
 {
   public class InputHandler
@@ -25,21 +25,40 @@ namespace GameManager.Commands
     private InputHandler()
     {
       this.attackCommand = new AttackCommand();
-      this.elementalAttackCommand = new ElementalAttackCommand(new Vector2(898f, Game1.ScreenSize.Y - 100f));
+
+      this.elementalAttackCommand = new ElementalAttackCommand(
+          new Vector2(/*898f*/(float)((double)Game1.ScreenSize.X / 2.0 +386.0), Game1.ScreenSize.Y - 100f)
+          );
+
       this.keyBinds.Add(Keys.D, (ICommand) new MoveCommand(Vector2.UnitX));
       this.keyBinds.Add(Keys.A, (ICommand) new MoveCommand(-Vector2.UnitX));
       this.keyBinds.Add(Keys.W, (ICommand) new MoveCommand(-Vector2.UnitY));
       this.keyBinds.Add(Keys.S, (ICommand) new MoveCommand(Vector2.UnitY));
-      this.keyBinds.Add(Keys.D1, (ICommand) new SwitchCharacterCommand(IconType.ElementIcon, new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 - 175.0), Game1.ScreenSize.Y - 100f), Element.Air));
-      this.keyBinds.Add(Keys.D2, (ICommand) new SwitchCharacterCommand(IconType.ElementIcon, new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 - 110.0), Game1.ScreenSize.Y - 100f), Element.Fire));
-      this.keyBinds.Add(Keys.D3, (ICommand) new SwitchCharacterCommand(IconType.ElementIcon, new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 - 39.0), Game1.ScreenSize.Y - 100f), Element.Earth));
-      this.keyBinds.Add(Keys.D4, (ICommand) new SwitchCharacterCommand(IconType.ElementIcon, new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 + 37.0), Game1.ScreenSize.Y - 100f), Element.Water));
+
+      this.keyBinds.Add(Keys.D1, (ICommand) new SwitchCharacterCommand(IconType.ElementIcon, 
+          new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 - 175.0), Game1.ScreenSize.Y - 100f), Element.Air));
+
+      this.keyBinds.Add(Keys.D2, (ICommand) new SwitchCharacterCommand(IconType.ElementIcon, 
+          new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 - 110.0), Game1.ScreenSize.Y - 100f), Element.Fire));
+
+      this.keyBinds.Add(Keys.D3, (ICommand) new SwitchCharacterCommand(IconType.ElementIcon,
+          new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 - 39.0), Game1.ScreenSize.Y - 100f), Element.Earth));
+
+      this.keyBinds.Add(Keys.D4, (ICommand) new SwitchCharacterCommand(IconType.ElementIcon,
+          new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 + 37.0), Game1.ScreenSize.Y - 100f), Element.Water));
+
       this.keyBinds.Add(Keys.D5, (ICommand) new SwitchCharacterCommand(IconType.ElementIcon, 
-          new Vector2(1068.57141f, Game1.ScreenSize.Y - 102f), Element.Stone));
-      this.keyBinds.Add(Keys.D6, (ICommand) new SwitchCharacterCommand(IconType.ElementIcon, new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 + 172.0), Game1.ScreenSize.Y - 100f), Element.Ice));
+          new Vector2((float)((double)Game1.ScreenSize.X / 2.0 + 102.0), Game1.ScreenSize.Y - 102f), Element.Stone));
+
+      this.keyBinds.Add(Keys.D6, (ICommand) new SwitchCharacterCommand(IconType.ElementIcon, 
+          new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 + 172.0), Game1.ScreenSize.Y - 100f), Element.Ice));
+
       this.keyBinds.Add(Keys.Up, (ICommand) new MapZoomCommand(1f));
       this.keyBinds.Add(Keys.Down, (ICommand) new MapZoomCommand(-1f));
-      this.keyBinds.Add(Keys.LeftShift, (ICommand) new UseMaskCommand(IconType.Mask, new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 - 271.0), Game1.ScreenSize.Y - 100f)));
+
+      this.keyBinds.Add(Keys.LeftShift, (ICommand) new UseMaskCommand(IconType.Mask, 
+          new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 - 271.0), Game1.ScreenSize.Y - 100f)));
+
       this.keyBinds.Add(Keys.F, (ICommand) new InteractCommand());
       this.keyBinds.Add(Keys.M, (ICommand) new MapCommand());
     }
@@ -57,8 +76,8 @@ namespace GameManager.Commands
 
       if (state2.LeftButton == ButtonState.Pressed)
       {
-          //this.attackCommand.Execute(playerController);
-          this.attackCommand.Execute(playerController);
+        //RnD: remark it for disable near attack
+        this.attackCommand.Execute(playerController);
       }
 
       state2 = Mouse.GetState();

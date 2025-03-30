@@ -8,7 +8,7 @@ using GameManager.GameObjects.Components.PlayerComponents;
 using GameManager.GameObjects.Components.Tilemaps;
 using Microsoft.Xna.Framework;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.Items.Masks
 {
   public class LevitationMask : Mask

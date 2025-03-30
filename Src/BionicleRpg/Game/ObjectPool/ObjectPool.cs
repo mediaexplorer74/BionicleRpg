@@ -11,12 +11,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-#nullable disable
+
 namespace GameManager.ObjectPool
 {
   public abstract class ObjectPool
   {
-    private readonly Stack<GameObject>[][] inactive = Enumerable.Range(0, Enum.GetValues(typeof (Element)).Length).Select<int, Stack<GameObject>[]>((Func<int, Stack<GameObject>[]>) (_ => Enumerable.Range(0, Enum.GetValues(typeof (AttackType)).Length).Select<int, Stack<GameObject>>((Func<int, Stack<GameObject>>) (_ => new Stack<GameObject>())).ToArray<Stack<GameObject>>())).ToArray<Stack<GameObject>[]>();
+    private readonly Stack<GameObject>[][] inactive = 
+            Enumerable.Range(0, Enum.GetValues(typeof (Element)).Length).Select<int, Stack<GameObject>[]>(
+                (Func<int, Stack<GameObject>[]>) (
+                _ => Enumerable.Range(0, Enum.GetValues(typeof (AttackType)).Length).Select<int, Stack<GameObject>>(
+                    (Func<int, Stack<GameObject>>) (
+                    _ => new Stack<GameObject>())).ToArray<Stack<GameObject>>())).ToArray<Stack<GameObject>[]>();
 
     public GameObject GetObject(Element element, AttackType attackType, GameObject Owner)
     {
@@ -36,7 +41,10 @@ namespace GameManager.ObjectPool
       this.CleanUp(gameObject);
     }
 
-    public virtual GameObject CreateObject() => throw new NotImplementedException();
+    public virtual GameObject CreateObject()
+    {
+        throw new NotImplementedException();
+    }
 
     public virtual GameObject CreateObject(Element element, AttackType attackType)
     {

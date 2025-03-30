@@ -7,7 +7,7 @@
 using GameManager.GameObjects.Components.Tilemaps;
 using Microsoft.Xna.Framework;
 
-#nullable disable
+
 namespace GameManager.DataTypes
 {
   public class Coordinate2DArray<T>

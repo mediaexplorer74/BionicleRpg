@@ -8,7 +8,7 @@ using GameManager.GameObjects.Components.NpcComponents;
 using GameManager.GameObjects.Components.Resources;
 using System;
 
-#nullable disable
+
 namespace GameManager.Quests
 {
   public class CollectWoodQuest : Quest

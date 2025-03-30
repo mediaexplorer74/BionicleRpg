@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-#nullable disable
+
 namespace GameManager.Map
 {
     public class UIWorldMap

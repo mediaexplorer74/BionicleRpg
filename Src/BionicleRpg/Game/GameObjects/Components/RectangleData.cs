@@ -6,7 +6,7 @@
 
 using Microsoft.Xna.Framework;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components
 {
   public class RectangleData

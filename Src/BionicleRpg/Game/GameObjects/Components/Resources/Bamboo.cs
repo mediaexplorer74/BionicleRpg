@@ -7,7 +7,7 @@
 using GameManager.GameObjects.Components.PlayerComponents;
 using System;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.Resources
 {
   public class Bamboo : Resource

@@ -7,7 +7,7 @@
 using GameManager.GameObjects.Components.Items.Weapons;
 using System;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components
 {
   public class Combat : Component

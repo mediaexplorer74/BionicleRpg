@@ -7,7 +7,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-#nullable disable
+
 namespace GameManager.States
 {
   public class CharacterCreationState : IState

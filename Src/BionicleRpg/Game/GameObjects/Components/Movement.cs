@@ -9,7 +9,7 @@ using GameManager.GameObjects.Components.Tilemaps;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components
 {
   public class Movement : Component

@@ -9,7 +9,7 @@ using GameManager.GameObjects.Components.PlayerComponents;
 using Microsoft.Xna.Framework.Input;
 using System;
 
-#nullable disable
+
 namespace GameManager.Commands
 {
     public class AttackCommand : ICommand

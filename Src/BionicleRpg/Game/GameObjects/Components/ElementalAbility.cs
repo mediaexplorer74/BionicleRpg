@@ -11,7 +11,7 @@ using GameManager.ObjectPool;
 using GameManager.UI;
 using Microsoft.Xna.Framework.Content;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components
 {
   public class ElementalAbility : Component

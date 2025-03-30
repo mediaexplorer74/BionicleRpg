@@ -21,10 +21,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Text;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.Tilemaps
 {
   public class Tilemap : Component
@@ -45,23 +44,16 @@ namespace GameManager.GameObjects.Components.Tilemaps
     }
 
     public Random Random { get; private set; }
-
     public static Rect2 BuildingRect { get; private set; } 
             = new Rect2((Vector2) new Vector2Int(0, 0), (Vector2) new Vector2Int(30, 30));
-
     public Coordinate2DArray<Tilemap.Tile> Tiles { get; private set; }
-
     public static Tilemap Instance { get; private set; }
-
     public int Width { get; set; }
-
     public int Height { get; set; }
-
     public int Seed { get; set; }
-
     public int HalfWidth => this.Width / 2;
-
     public int HalfHeight => this.Height / 2;
+
 
     public static bool WaterCollisionEnabled
     {
@@ -118,7 +110,8 @@ namespace GameManager.GameObjects.Components.Tilemaps
           --tilePos.X;
           return tilePos;
         default:
-          throw new ArgumentOutOfRangeException(nameof (offsetDir), (object) offsetDir, "Only adjacent directions 0-3 are allowed as per Manhattan distance.");
+          throw new ArgumentOutOfRangeException(nameof (offsetDir), (object) offsetDir, 
+              "Only adjacent directions 0-3 are allowed as per Manhattan distance.");
       }
     }
 
@@ -144,64 +137,64 @@ namespace GameManager.GameObjects.Components.Tilemaps
       return decorations;
     }
 
-        // Update the LoadDecoration method to use StringBuilder instead of DefaultInterpolatedStringHandler
-        private bool LoadDecoration(string biomeName, int index, List<Tilemap.Decoration> decorations)
-        {
-            Texture2D texture = null;
-            bool isRotatable = false;
-            bool isBlocking = false;
-            StringBuilder sb = new StringBuilder(20);
-            sb.Append("Content\\Deco_").Append(biomeName).Append("_B_").Append(index).Append(".xnb");
+    // LoadDecoration
+    private bool LoadDecoration(string biomeName, int index, List<Tilemap.Decoration> decorations)
+    {
+        Texture2D texture = null;
+        bool isRotatable = false;
+        bool isBlocking = false;
+        StringBuilder sb = new StringBuilder(20);
+        sb.Append("Content\\Deco_").Append(biomeName).Append("_B_").Append(index).Append(".xnb");
 
+        if (File.Exists(sb.ToString()))
+        {
+            ContentManager content = Glob.Content;
+            sb.Clear().Append("Deco_").Append(biomeName).Append("_B_").Append(index);
+            string stringAndClear = sb.ToString();
+            texture = content.Load<Texture2D>(stringAndClear);
+            isBlocking = true;
+        }
+        else
+        {
+            sb.Clear().Append("Content\\Deco_").Append(biomeName).Append("_N_").Append(index).Append(".xnb");
             if (File.Exists(sb.ToString()))
             {
-                ContentManager content = Glob.Content;
-                sb.Clear().Append("Deco_").Append(biomeName).Append("_B_").Append(index);
+				ContentManager content = Glob.Content;
+				sb.Clear().Append("Deco_").Append(biomeName).Append("_N_").Append(index);
                 string stringAndClear = sb.ToString();
                 texture = content.Load<Texture2D>(stringAndClear);
-                isBlocking = true;
             }
             else
             {
-                sb.Clear().Append("Content\\Deco_").Append(biomeName).Append("_N_").Append(index).Append(".xnb");
+                sb.Clear().Append("Content\\Deco_").Append(biomeName).Append("_B_").Append(index).Append("R.xnb");
                 if (File.Exists(sb.ToString()))
                 {
-					ContentManager content = Glob.Content;
-					sb.Clear().Append("Deco_").Append(biomeName).Append("_N_").Append(index);
+                    ContentManager content = Glob.Content;
+                    sb.Clear().Append("Deco_").Append(biomeName).Append("_B_").Append(index).Append("R");
                     string stringAndClear = sb.ToString();
                     texture = content.Load<Texture2D>(stringAndClear);
+                    isBlocking = true;
+                    isRotatable = true;
                 }
                 else
                 {
-                    sb.Clear().Append("Content\\Deco_").Append(biomeName).Append("_B_").Append(index).Append("R.xnb");
+                    sb.Clear().Append("Content\\Deco_").Append(biomeName).Append("_N_").Append(index).Append("R.xnb");
                     if (File.Exists(sb.ToString()))
                     {
                         ContentManager content = Glob.Content;
-                        sb.Clear().Append("Deco_").Append(biomeName).Append("_B_").Append(index).Append("R");
+                        sb.Clear().Append("Deco_").Append(biomeName).Append("_N_").Append(index).Append("R");
                         string stringAndClear = sb.ToString();
                         texture = content.Load<Texture2D>(stringAndClear);
-                        isBlocking = true;
                         isRotatable = true;
-                    }
-                    else
-                    {
-                        sb.Clear().Append("Content\\Deco_").Append(biomeName).Append("_N_").Append(index).Append("R.xnb");
-                        if (File.Exists(sb.ToString()))
-                        {
-                            ContentManager content = Glob.Content;
-                            sb.Clear().Append("Deco_").Append(biomeName).Append("_N_").Append(index).Append("R");
-                            string stringAndClear = sb.ToString();
-                            texture = content.Load<Texture2D>(stringAndClear);
-                            isRotatable = true;
-                        }
                     }
                 }
             }
-            if (texture == null)
-                return false;
-            decorations.Add(new Tilemap.Decoration(texture, isRotatable, isBlocking));
-            return true;
         }
+        if (texture == null)
+            return false;
+        decorations.Add(new Tilemap.Decoration(texture, isRotatable, isBlocking));
+        return true;
+    }//LoadDecoration
 
     private void GenerateTiles()
     {
@@ -247,14 +240,18 @@ namespace GameManager.GameObjects.Components.Tilemaps
             GameObject gameObject = (GameObject) null;
             GameObject floorObj = (GameObject) null;
             Collider collider = (Collider) null;
+
             bool isBlocking = false;
-            bool flag1 = x > this.HalfWidth - 105 || x < -this.HalfWidth + 105 || y > this.HalfWidth - 105 || y < -this.HalfWidth + 105;
+            bool flag1 = x > this.HalfWidth - 105 || x < -this.HalfWidth + 105
+                            || y > this.HalfWidth - 105 || y < -this.HalfWidth + 105;
+
             if (!flag1 && (double) settlementNoiseMap.GetNoise((float) x, (float) y) > 0.85000002384185791)
             {
               Color saddleBrown = Color.SaddleBrown;
               floorObj = this.CreateTileObject(vector2Int1, texture1, TileShadowType.None, saddleBrown);
               bool flag2 = false;
 
+             
               if (this.Random.Next(0, 10) == 0 
                                 && !this.HasBuildingBlockerInRange(vector2Int1 / 50f, 5, settlementNoiseMap, 0.85f))
               {
@@ -282,6 +279,8 @@ namespace GameManager.GameObjects.Components.Tilemaps
                   }
                 }
               }
+           
+
               if (type != TileType.Building)
               {
                 for (int index3 = -2; index3 <= 2; ++index3)
@@ -397,8 +396,11 @@ namespace GameManager.GameObjects.Components.Tilemaps
             {
               Color greenYellow = Color.GreenYellow;
               floorObj = this.CreateTileObject(vector2Int1, texture5, TileShadowType.None, greenYellow);
-              if (!this.RandomlyGenerateDungeonEntrance(vector2Int1, texture2D, ref gameObject, ref type) && this.Random.Next(0, 6) == 0)
-                gameObject = this.InstantiateRandomDecoration(ref collider, ref type, decorations4, vector2Int1, out isBlocking, greenYellow);
+
+              if (!this.RandomlyGenerateDungeonEntrance(vector2Int1, texture2D, ref gameObject, ref type) 
+                                && this.Random.Next(0, 6) == 0)
+                gameObject = this.InstantiateRandomDecoration(ref collider, ref type, 
+                    decorations4, vector2Int1, out isBlocking, greenYellow);
             }
             this.Tiles[x, y] = new Tilemap.Tile(vector2Int1, type, gameObject, floorObj, collider, isBlocking);
           }
@@ -412,8 +414,12 @@ namespace GameManager.GameObjects.Components.Tilemaps
         List<Tilemap.Decoration> decorations = this.LoadBiomeDecorations("Dungeon");
         Rect2 tilemapRect = new Rect2((Vector2) new Vector2Int(0, -6), (Vector2) new Vector2Int(50, 44));
         Vector2Int exteriorDoorPos = new Vector2Int((int) tilemapRect.Center.X, (int) tilemapRect.Max.Y);
-        (List<Rect2> rect2List, List<Vector2Int> doorPositions) = DungeonGenerator.Generate(tilemapRect, exteriorDoorPos, new int?(this.Seed));
+
+        (List<Rect2> rect2List, List<Vector2Int> doorPositions) = 
+                    DungeonGenerator.Generate(tilemapRect, exteriorDoorPos, new int?(this.Seed));
+
         Rect2 rect2 = new Rect2((Vector2) new Vector2Int(0, this.HalfHeight - 3 - 2), (Vector2) new Vector2Int(4, 8));
+        
         for (int x = -this.HalfWidth; x < this.HalfWidth; ++x)
         {
           for (int y = -this.HalfHeight; y < this.HalfHeight; ++y)
@@ -423,7 +429,9 @@ namespace GameManager.GameObjects.Components.Tilemaps
             GameObject gameObject = (GameObject) null;
             Collider collider = (Collider) null;
             bool isBlocking = false;
-            if (x == this.HalfWidth - 1 || y == -this.HalfWidth || tilemapRect.IsOnEdge(x, y) || this.IsOnRectEdge(x, y, rect2List) || rect2.IsOnEdge(x, y))
+
+            if (x == this.HalfWidth - 1 || y == -this.HalfWidth || tilemapRect.IsOnEdge(x, y)
+                            || this.IsOnRectEdge(x, y, rect2List) || rect2.IsOnEdge(x, y))
             {
               Vector2Int vector2Int5 = new Vector2Int(x, y);
               if ((x == this.HalfWidth - 1 || x == -this.HalfWidth || y == -this.HalfWidth || y == exteriorDoorPos.Y) && vector2Int5 != exteriorDoorPos || !doorPositions.Contains(vector2Int5))
@@ -432,12 +440,18 @@ namespace GameManager.GameObjects.Components.Tilemaps
                 collider = gameObject.AddComponent<Collider>();
               }
             }
+
             if (gameObject == null && this.Random.Next(0, 5) == 0)
-              gameObject = this.InstantiateRandomDecoration(ref collider, ref type, decorations, vector2Int4, out isBlocking, brown);
-            GameObject tileObject = this.CreateTileObject(vector2Int4, texture9, TileShadowType.None, brown, gameObject == null);
+              gameObject = this.InstantiateRandomDecoration(ref collider, ref type, decorations, 
+                  vector2Int4, out isBlocking, brown);
+
+            GameObject tileObject = this.CreateTileObject(vector2Int4, texture9, 
+                TileShadowType.None, brown, gameObject == null);
+
             this.Tiles[x, y] = new Tilemap.Tile(vector2Int4, type, gameObject, tileObject, collider, isBlocking);
           }
         }
+
         for (int index5 = 0; index5 < rect2List.Count; ++index5)
         {
           if (IsValidRoom(rect2List[index5]))
@@ -451,7 +465,7 @@ namespace GameManager.GameObjects.Components.Tilemaps
             }
           }
         }
-      }
+      }//
 
       static bool IsValidRoom(Rect2 room)
       {
@@ -485,8 +499,10 @@ namespace GameManager.GameObjects.Components.Tilemaps
           gameObject = this.InstantiateRandomDecoration(ref collider, ref type, mountainDecorations, pos, out isDecoBlocking, gray);
         }
       }
-    }
+    }//GenerateTiles
 
+
+    // CountEnemies
     private void CountEnemies()
     {
       if (!(StateManager.Instance.CurrentState is DungeonState currentState))
@@ -523,24 +539,31 @@ namespace GameManager.GameObjects.Components.Tilemaps
                 return true;
             }
           }
-          if (Math.Abs(index1) + Math.Abs(index2) <= 3 && (double) settlementNoiseMap.GetNoise((float) vector2Int.X, (float) vector2Int.Y) <= (double) settlementNoiseLevel)
+          if (Math.Abs(index1) + Math.Abs(index2) <= 3 &&
+                        (double) settlementNoiseMap.GetNoise((float) vector2Int.X,
+                        (float) vector2Int.Y) <= (double) settlementNoiseLevel)
             return true;
         }
       }
       return false;
     }
 
-    private GameObject InstantiateRandomDecoration(
+
+    // InstantiateRandomDecoration
+   private GameObject InstantiateRandomDecoration
+   (
       ref Collider collider,
       ref TileType type,
       List<Tilemap.Decoration> decorations,
       Vector2Int pos,
       out bool isBlocking,
       Color minimapColor,
-      TileShadowType? minimapShadowType = null)
-    {
+      TileShadowType? minimapShadowType = null
+   )
+   {
       Tilemap.Decoration randomElement = decorations.GetRandomElement<Tilemap.Decoration>(this.Random);
-      GameObject tileObject = this.CreateTileObject(pos, randomElement.Texture, TileShadowType.Object, minimapColor, minimapShadowType: minimapShadowType);
+      GameObject tileObject = this.CreateTileObject(pos, randomElement.Texture, 
+          TileShadowType.Object, minimapColor, minimapShadowType: minimapShadowType);
       if (randomElement.IsRotatable)
         tileObject.Transform.Rotation = this.Random.NextFloat(-3.14159274f, 3.14159274f);
       tileObject.Transform.Scale /= 1.5f;
@@ -585,9 +608,9 @@ namespace GameManager.GameObjects.Components.Tilemaps
           break;
       }
       return tileObject;
-    }
+   }//InstantiateRandomDecoration
 
-    private bool RandomlyGenerateDungeonEntrance(
+   private bool RandomlyGenerateDungeonEntrance(
       Vector2Int pos,
       Texture2D texture,
       ref GameObject gameObject,
@@ -596,7 +619,8 @@ namespace GameManager.GameObjects.Components.Tilemaps
       if (this.Random.Next(0, 1000) != 0)
         return false;
       type = TileType.DungeonEntrance;
-      gameObject = this.CreateTileObject(pos, texture, TileShadowType.Wall, Color.Cyan, minimapShadowType: new TileShadowType?(TileShadowType.None));
+      gameObject = this.CreateTileObject(pos, texture, TileShadowType.Wall, 
+    Color.Cyan, minimapShadowType: new TileShadowType?(TileShadowType.None));
       DungeonEntrance dungeonEntrance = gameObject.AddComponent<DungeonEntrance>();
       dungeonEntrance.IsEnabled = false;
       dungeonEntrance.Seed = this.Random.Next();

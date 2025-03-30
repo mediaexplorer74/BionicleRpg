@@ -7,7 +7,7 @@
 using GameManager.Factories;
 using GameManager.ObjectPool;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.Items.Weapons
 {
   public abstract class Weapon : Item
@@ -57,13 +57,18 @@ namespace GameManager.GameObjects.Components.Items.Weapons
         return;
       this.FireTimer = (float) Glob.GameTime.TotalGameTime.TotalSeconds + this.DelayTimer;
       this.Owner.AddComponent<Audio>().Play("Fwip");
-      GameObject gameObject = ProjectilePool.Instance.GetObject(this.Owner.GetComponent<Combat>().SelectedElement, this.AttackType, this.Owner);
+
+      GameObject gameObject = ProjectilePool.Instance.GetObject(
+          this.Owner.GetComponent<Combat>().SelectedElement, this.AttackType, this.Owner);
+
       Projectile component1 = gameObject.GetComponent<Projectile>();
       component1.Owner = this.Owner;
       component1.Damage = this.Damage;
       Movement component2 = this.Owner.GetComponent<Movement>();
       gameObject.GetComponent<Movement>().ExtraVelocity = component2.Velocity * component2.Speed;
-      gameObject.Transform.Position = this.Owner.Transform.Position - Tools.GetVectorFromAngle(this.Owner.Transform.WorldDirection) * 10f;
+      gameObject.Transform.Position = this.Owner.Transform.Position - Tools.GetVectorFromAngle(
+          this.Owner.Transform.WorldDirection) * 10f;
+
       gameObject.Transform.Rotation = 3.14159274f - this.Owner.GetComponent<Combat>().AimDirection;
     }
   }

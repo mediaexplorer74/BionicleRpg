@@ -9,7 +9,7 @@ using GameManager.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components
 {
   public class Savestone : Building

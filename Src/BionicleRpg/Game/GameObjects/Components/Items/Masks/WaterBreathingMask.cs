@@ -6,7 +6,7 @@
 
 using GameManager.GameObjects.Components.Tilemaps;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.Items.Masks
 {
   public class WaterBreathingMask : Mask

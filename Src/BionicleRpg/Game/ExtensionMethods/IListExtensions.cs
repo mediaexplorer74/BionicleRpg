@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 
-#nullable disable
+
 namespace GameManager
 {
   public static class IListExtensions

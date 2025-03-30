@@ -8,7 +8,7 @@ using Microsoft.Data.Sqlite;
 using System.Data;
 //using System.Data.SQLite;
 
-#nullable disable
+
 namespace GameManager.Database
 {
   public class SQLiteDatabaseProvider

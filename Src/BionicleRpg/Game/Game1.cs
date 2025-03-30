@@ -22,20 +22,17 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-#nullable disable
+
 namespace GameManager
 {
   public class Game1 : Game
   {
     private GraphicsDeviceManager graphics;
 
-
     // *********************************************************************
-    Vector2 baseScreenSize = new Vector2(1024, 1080 / 2); //!
-
+    Vector2 baseScreenSize = new Vector2(1024, 1080 / 2); 
     private Matrix globalTransformation;
     int backbufferWidth, backbufferHeight;
-
     public static bool FirstResize = true;
     // *********************************************************************
 
@@ -59,7 +56,6 @@ namespace GameManager
     public static Random Random { get; } = new Random();
 
    
-    
 
     public Game1()
     {
@@ -72,8 +68,8 @@ namespace GameManager
 
         Game1.ScreenSize = new Vector2(screenWidth, screenHeight);
 
-            graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft;
-        //   | DisplayOrientation.LandscapeRight;// | DisplayOrientation.Portrait;
+            graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft
+          | DisplayOrientation.LandscapeRight | DisplayOrientation.Portrait;
         
         Content.RootDirectory = "Content";
         Glob.Content = Content;
@@ -97,7 +93,7 @@ namespace GameManager
         
         Quest.Initialize();
 
-        //this.graphics.GraphicsProfile = GraphicsProfile.HiDef; // RnD
+        this.graphics.GraphicsProfile = GraphicsProfile.Reach; // RnD
 
         //Game1.ScreenSize = new Vector2(screenWidth, screenHeight);
 
@@ -111,7 +107,7 @@ namespace GameManager
      }//Initialize
 
 
-    // ScalePresentationArea - scale our graphics :)
+    // ScalePresentationArea
     public void ScalePresentationArea()
     {
         //Work out how much we need to scale our graphics to fill the screen
@@ -125,15 +121,11 @@ namespace GameManager
 
         globalTransformation = Matrix.CreateScale(screenScalingFactor);
 
-        System.Diagnostics.Debug.WriteLine("Screen Size - Width["
-            + GraphicsDevice.PresentationParameters.BackBufferWidth + "] " +
-            "Height [" + GraphicsDevice.PresentationParameters.BackBufferHeight + "]");
+        //System.Diagnostics.Debug.WriteLine("Screen Size - Width["
+        //    + GraphicsDevice.PresentationParameters.BackBufferWidth + "] " +
+        //    "Height [" + GraphicsDevice.PresentationParameters.BackBufferHeight + "]");
 
-        //Experimental
-        //screenWidth = GraphicsDevice.PresentationParameters.BackBufferWidth;
-        //screenHeight = GraphicsDevice.PresentationParameters.BackBufferHeight;
-        //Game1.ScreenSize = new Vector2(screenWidth, screenHeight);
-    }
+    }//ScalePresentationArea
 
 
     // LoadContent
@@ -156,8 +148,10 @@ namespace GameManager
       // ************************************** 
 
       StateManager.Instance.AddScreen((IState) new MenuState());
-   }//LoadContent
+    }//LoadContent
 
+
+    // CreateWorld
     public static void CreateWorld(int width, int height)
     {
       Game1.CreateTilemaps(width, height);
@@ -167,17 +161,20 @@ namespace GameManager
         DatabaseManager.Instance.NewSavegame();
       else
         DatabaseManager.Instance.SetLoadVariables();
-    }
+    }//CreateWorld
 
-    public static void InitGameObjects()
+    // InitGameObjects
+        public static void InitGameObjects()
     {
       List<GameObject> list = GameObject.GameObjects.ToList<GameObject>();
       foreach (GameObject gameObject in list)
         gameObject.Awake();
       foreach (GameObject gameObject in list)
         gameObject.Start();
-    }
+    }//InitGameObjects
 
+
+    // CreateTilemaps
     private static void CreateTilemaps(int width, int height)
     {
       Tilemap tilemap = new GameObject().AddComponent<Tilemap>();
@@ -205,8 +202,10 @@ namespace GameManager
       GenericRenderer genericRenderer3 = gameObject3.AddComponent<GenericRenderer>();
       genericRenderer3.Renderable = (IRenderable) gameObject3.AddComponent<VisionTilemap>();
       genericRenderer3.SpriteBatchOverride = Game1.VisionBatch;
-    }
+    }//CreateTilemaps
 
+
+    // Update
     protected override void Update(GameTime gameTime)
     {
       // *********************************
@@ -222,7 +221,6 @@ namespace GameManager
         FirstResize = false;
       }
       // *********************************
-
 
       if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed 
         || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -242,48 +240,47 @@ namespace GameManager
 
       foreach (GameObject gameObject in list)
         gameObject.LastUpdate();
+
       StateManager.Instance.Update();
       UIManager.Instance.Update();
-      base.Update(gameTime);
-    }
 
+      base.Update(gameTime);
+    }//Update
+
+    // Draw
     protected override void Draw(GameTime gameTime)
     {
-      this.GraphicsDevice.Clear(Color.AliceBlue);
+      this.GraphicsDevice.Clear(Color.Black);
 
-      Game1.FloorSpriteBatch.Begin(SpriteSortMode.BackToFront,   BlendState.AlphaBlend, SamplerState.PointClamp, 
-          null, null,null, globalTransformation);
+      Game1.FloorSpriteBatch.Begin(/*SpriteSortMode.BackToFront*/SpriteSortMode.Deferred, BlendState.AlphaBlend,
+          SamplerState.PointClamp, null, null,null, globalTransformation);
 
-        Game1.FloorDecoSpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp,
-        null, null, null, globalTransformation);
+      Game1.FloorDecoSpriteBatch.Begin(/*SpriteSortMode.BackToFront*/SpriteSortMode.Deferred, BlendState.AlphaBlend,
+          SamplerState.PointClamp,  null, null, null, globalTransformation);
 
-        Game1.FloorShadowBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend,
-            SamplerState.AnisotropicClamp,
-        null, null, null, globalTransformation);
+      Game1.FloorShadowBatch.Begin(/*SpriteSortMode.BackToFront*/SpriteSortMode.Deferred, BlendState.AlphaBlend,
+          SamplerState.AnisotropicClamp, null, null, null, globalTransformation);
 
-        Game1.WallSpriteBatch.Begin(SpriteSortMode.BackToFront,  BlendState.AlphaBlend, SamplerState.PointClamp,
-        null, null, null, globalTransformation);
+      Game1.WallSpriteBatch.Begin(/*SpriteSortMode.BackToFront*/SpriteSortMode.Deferred, BlendState.AlphaBlend, 
+          SamplerState.PointClamp, null, null, null, globalTransformation);
 
-        Game1.VisionBatch.Begin(SpriteSortMode.BackToFront,  BlendState.AlphaBlend, SamplerState.AnisotropicClamp,
-          null, null, null, globalTransformation);
+        Game1.VisionBatch.Begin(/*SpriteSortMode.BackToFront*/SpriteSortMode.Deferred, BlendState.AlphaBlend, 
+            SamplerState.AnisotropicClamp, null, null, null, globalTransformation);
 
-        //RnD
         Game1.UISpriteBatch.Begin(/*SpriteSortMode.BackToFront*/SpriteSortMode.Deferred,  
-            BlendState.AlphaBlend, SamplerState.LinearClamp,  null, null, null, globalTransformation);
+            BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, globalTransformation);
 
-        Game1.MapSpriteBatch.Begin(SpriteSortMode.BackToFront,  BlendState.AlphaBlend, 
+        Game1.MapSpriteBatch.Begin(/*SpriteSortMode.BackToFront*/SpriteSortMode.Deferred, BlendState.AlphaBlend, 
             SamplerState.PointClamp,  null, null, null, globalTransformation);
 
-        Game1.LightingBatch.Begin(SpriteSortMode.BackToFront, new BlendState()
-        {
-            ColorBlendFunction = BlendFunction.Add,
-            ColorSourceBlend = Blend.DestinationColor,
-            ColorDestinationBlend = Blend.Zero
-        }, 
-        SamplerState.AnisotropicClamp, null,null,null, globalTransformation);
+        Game1.LightingBatch.Begin(/*SpriteSortMode.BackToFront*/SpriteSortMode.Deferred, new BlendState()
+           { ColorBlendFunction = BlendFunction.Add, 
+            ColorSourceBlend = Blend.DestinationColor, 
+            ColorDestinationBlend = Blend.Zero }, 
+           SamplerState.AnisotropicClamp, null,null,null, globalTransformation);
 
         for (int index = GameObject.GameObjects.Count - 1; index >= 0; --index)
-        GameObject.GameObjects[index].Draw(Game1.WallSpriteBatch);
+          GameObject.GameObjects[index].Draw(Game1.WallSpriteBatch);
 
         StateManager.Instance.Draw(Game1.WallSpriteBatch);
         UIManager.Instance.Draw(Game1.UISpriteBatch);

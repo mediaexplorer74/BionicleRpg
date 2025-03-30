@@ -9,7 +9,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
-#nullable disable
+
 namespace GameManager.DataTypes
 {
   [method: MethodImpl(MethodImplOptions.AggressiveInlining)]

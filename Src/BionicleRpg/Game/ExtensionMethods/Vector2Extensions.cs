@@ -7,7 +7,7 @@
 using Microsoft.Xna.Framework;
 using System;
 
-#nullable disable
+
 namespace GameManager
 {
   public static class Vector2Extensions

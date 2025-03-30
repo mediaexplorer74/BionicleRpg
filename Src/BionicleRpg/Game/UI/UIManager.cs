@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Windows.Media.ContentRestrictions;
 
-#nullable disable
+
 namespace GameManager.UI
 {
   public class UIManager
@@ -70,18 +70,20 @@ namespace GameManager.UI
 
     public void CreateImages()
     {
-      Image image1 = new Image("UI_Hotbar_LMB", new Vector2(Game1.ScreenSize.X / 2f, 
+      Image image1 = new Image("UI_Hotbar_LMB", 
+          new Vector2(Game1.ScreenSize.X / 2f - 0, 
           Game1.ScreenSize.Y - 75f), 0.6f);
 
       image1.IconType = IconType.Other;
       image1.UIStateAssign = UIStateAssign.Gameplay;
       this.maskIcon = new Image(this.MaskIconName, 
-          new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 - 268.0),
+          new Vector2(Game1.ScreenSize.X / 2f - 268f,
           Game1.ScreenSize.Y - 70f), 0.35f);
 
       this.maskIcon.IconType = IconType.Mask;
       this.maskIcon.Color = Color.LightGray;
       this.maskIcon.UIStateAssign = UIStateAssign.Gameplay;
+
       this.playerMaskIcon = new Image(this.MaskIconName, new Vector2(77f, 74f), 0.55f);
       this.playerMaskIcon.IconType = IconType.Other;
       this.playerMaskIcon.UIStateAssign = UIStateAssign.Gameplay;
@@ -111,36 +113,57 @@ namespace GameManager.UI
       image5.UIStateAssign = UIStateAssign.Gameplay;
 
       Image image6 = new Image("StoneIcon", 
-          new Vector2(1064.28577f, Game1.ScreenSize.Y - 70f), 0.3f);
+          new Vector2((float)((double)Game1.ScreenSize.X / 2.0 + 107.0), 
+          Game1.ScreenSize.Y - 70f), 0.3f);
       image6.IconType = IconType.ElementIcon;
       image6.UIStateAssign = UIStateAssign.Gameplay;
 
       Image image7 = new Image("IceIcon", 
-          new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 + 172.0), 
+          new Vector2( Game1.ScreenSize.X / 2f + 172f, 
           Game1.ScreenSize.Y - 70f), 0.3f);
       image7.IconType = IconType.ElementIcon;
       image7.UIStateAssign = UIStateAssign.Gameplay;
 
+      // power icon
       this.powerIcon = new Image("AirIcon", 
-          new Vector2(1231.42859f, Game1.ScreenSize.Y - 70f), 0.3f);
+      new Vector2(Game1.ScreenSize.X / 2f + 272f, Game1.ScreenSize.Y - 70f), 0.3f);
       this.powerIcon.IconType = IconType.ElementPower;
       this.powerIcon.UIStateAssign = UIStateAssign.Gameplay;
 
 
       new Image("UI_MenuScreen", 
-          new Vector2(Game1.ScreenSize.X / 2f, 
-          Game1.ScreenSize.Y / 2f), 1f).UIStateAssign = UIStateAssign.StartMenu;
+          new Vector2(
+              Game1.ScreenSize.X / 2f, 
+              Game1.ScreenSize.Y / 2f), 
+              1f)
+            .UIStateAssign = UIStateAssign.StartMenu;
 
-      new Image("UI_LoadGameScreen", 
-          new Vector2(Game1.ScreenSize.X / 2f,
-          Game1.ScreenSize.Y / 2f), 1f).UIStateAssign = UIStateAssign.LoadGame;
+      new Image(
+          "UI_LoadGameScreen", 
+          new Vector2(
+              Game1.ScreenSize.X / 2f, // offset x ?
+              Game1.ScreenSize.Y / 2f), // offset y ?
+              /*1f*/0.5f) //scale
+            .UIStateAssign = UIStateAssign.LoadGame;
 
       new Image("UI_LoadingScreen", 
-          new Vector2(Game1.ScreenSize.X / 2f, 
-          Game1.ScreenSize.Y / 2f), 1f).UIStateAssign = UIStateAssign.Loading;
+          new Vector2(
+              Game1.ScreenSize.X / 2f, 
+              Game1.ScreenSize.Y / 2f), 
+              /*1f*/0.5f)
+             .UIStateAssign = UIStateAssign.Loading;
 
 
-      Image image8 = new Image("UI_QuestDisplay", new Vector2(Game1.ScreenSize.X - 210f, 150f), 0.8f);
+      Image image8 = new Image
+      (
+          "UI_QuestDisplay", 
+          new Vector2
+          (
+              Game1.ScreenSize.X - /*210f*/120f, 
+              /*150f*/100f
+          ), 
+          /*0.8f*/0.5f
+      );
       image8.UIStateAssign = UIStateAssign.Gameplay;
       image8.IconType = IconType.Other;
     }
@@ -148,28 +171,38 @@ namespace GameManager.UI
     public void CreateButtons()
     {
       Button button1 = new Button("Button_NewGame", 
-          new Vector2(Game1.ScreenSize.X / 2f, Game1.ScreenSize.Y / 2f));
+          new Vector2(
+              Game1.ScreenSize.X / 2f, 
+              Game1.ScreenSize.Y / 2f));
       button1.UIStateAssign = UIStateAssign.StartMenu;
 
       button1.Click += new EventHandler(this.NewGameButton_Click);
 
       Button button2 = new Button("Button_LoadGame", 
-          new Vector2(Game1.ScreenSize.X / 2f, 
-          (float) ((double) Game1.ScreenSize.Y / 2.0 + 75.0)));
+          new Vector2(
+              Game1.ScreenSize.X / 2f, 
+              Game1.ScreenSize.Y / 2f + 75.0f)
+       );
       button2.UIStateAssign = UIStateAssign.StartMenu;
 
       button2.Click += new EventHandler(this.LoadGameButton_Click);
 
       Button button3 = new Button("Button_QuitGame", 
-          new Vector2((float) ((double) Game1.ScreenSize.X / 2.0 + 5.0), 
-          (float) ((double) Game1.ScreenSize.Y / 2.0 + 150.0)));
+          new Vector2(
+              Game1.ScreenSize.X / 2f + 5f, 
+              Game1.ScreenSize.Y / 2f + 150f)
+      );
       button3.UIStateAssign = UIStateAssign.StartMenu;
 
       button3.Click += new EventHandler(this.QuitGameButton_Click);
 
       Button button4 = new Button("Button_Return", 
-          new Vector2(Game1.ScreenSize.X / 2f, Game1.ScreenSize.Y - 150f));
-      button4.UIStateAssign = UIStateAssign.LoadGame;
+          new Vector2(
+              Game1.ScreenSize.X / 2f, 
+              Game1.ScreenSize.Y /*- 150f*/ + 175f));
+      //RnD
+      button4.UIStateAssign = UIStateAssign.StartMenu;//UIStateAssign.LoadGame;
+
       button4.Click += new EventHandler(this.ReturnButton_Click);
     }
 
@@ -179,6 +212,7 @@ namespace GameManager.UI
       {
         if (iconType != IconType.ElementPower)
           return;
+
         this.powerIcon.Sprite = Glob.Content.Load<Texture2D>(spriteName);
       }
       else
@@ -211,12 +245,12 @@ namespace GameManager.UI
 
     private void LoadGameButton_Click(object sender, EventArgs e)
     {
-      StateManager.Instance.AddScreen((IState) new LoadGameState());
+      StateManager.Instance.AddScreen(new LoadGameState());
     }
 
     private void NewGameButton_Click(object sender, EventArgs e)
     {
-      StateManager.Instance.ChangeScreen((IState) new LoadingState((IState) new OverworldState()));
+      StateManager.Instance.ChangeScreen(new LoadingState(new OverworldState()));
     }
   }
 }

@@ -14,7 +14,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-#nullable disable
+
 namespace GameManager.Database
 {
   public class Repository

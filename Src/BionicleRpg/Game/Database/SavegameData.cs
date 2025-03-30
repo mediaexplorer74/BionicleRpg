@@ -7,7 +7,7 @@
 using GameManager.GameObjects;
 using Microsoft.Xna.Framework;
 
-#nullable disable
+
 namespace GameManager.Database
 {
   public class SavegameData(GameObject gameObject)

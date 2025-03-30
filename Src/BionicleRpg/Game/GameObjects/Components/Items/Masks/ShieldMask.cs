@@ -7,7 +7,7 @@
 using GameManager.GameObjects.Components.PlayerComponents;
 using GameManager.GameObjects.Components.Renderers;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.Items.Masks
 {
   public class ShieldMask : Mask

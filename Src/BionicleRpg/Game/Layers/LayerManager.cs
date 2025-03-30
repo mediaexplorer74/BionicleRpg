@@ -6,7 +6,7 @@
 
 using System;
 
-#nullable disable
+
 namespace GameManager.Layers
 {
   public class LayerManager

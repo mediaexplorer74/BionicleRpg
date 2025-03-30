@@ -11,7 +11,7 @@ using GameManager.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-#nullable disable
+
 namespace GameManager.Commands
 {
     public class ElementalAttackCommand : ICommand

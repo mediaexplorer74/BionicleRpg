@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SharpDX.Direct3D;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.Tilemaps
 {
   public class LightingTilemap : Component, IRenderable

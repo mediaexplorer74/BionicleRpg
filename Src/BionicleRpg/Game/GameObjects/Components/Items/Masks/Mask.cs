@@ -8,7 +8,7 @@ using GameManager.DataTypes;
 using GameManager.GameObjects.Components.PlayerComponents;
 using System;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.Items.Masks
 {
     public abstract class Mask : Item
@@ -19,15 +19,10 @@ namespace GameManager.GameObjects.Components.Items.Masks
         protected float energyRegain = 1f;
 
         public float MaxMaskEnergy { get; set; } = 100f;
-
         public float MinMaskEnergy { get; protected set; }
-
         public float MaskEnergy { get; set; } = 100f;
-
         public bool PowerActive { get; private set; }
-
         public string MaskSprite { get; protected set; } = "None";
-
         public string MaskUiSprite { get; protected set; }
 
         public GameObject Owner { get; set; }

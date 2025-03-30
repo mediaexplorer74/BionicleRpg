@@ -9,7 +9,7 @@ using GameManager.Layers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.Renderers
 {
   public abstract class Renderer : Component

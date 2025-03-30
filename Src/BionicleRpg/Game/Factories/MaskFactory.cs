@@ -11,7 +11,7 @@ using GameManager.GameObjects.Components.Renderers;
 using System;
 using System.Collections.Generic;
 
-#nullable disable
+
 namespace GameManager.Factories
 {
   public class MaskFactory : Factory

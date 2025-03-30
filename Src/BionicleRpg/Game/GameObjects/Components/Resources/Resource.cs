@@ -6,7 +6,7 @@
 
 using GameManager.GameObjects.Components.Items;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.Resources
 {
   public abstract class Resource : Item

@@ -8,7 +8,7 @@
     using SharpDX;
     using System;
 
-    #nullable disable
+    
     namespace GameManager
     {
         public static class RandomExtensions

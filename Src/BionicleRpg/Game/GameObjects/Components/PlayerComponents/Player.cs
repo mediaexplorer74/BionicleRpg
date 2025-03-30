@@ -22,7 +22,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Runtime.CompilerServices;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.PlayerComponents
 {
   public class Player : Component//, IElement
@@ -123,14 +123,14 @@ namespace GameManager.GameObjects.Components.PlayerComponents
     }
 
     //RnD : What is it? Why?
-    /*private void SetupElement()
+    private void SetupElement()
     {
       if (this.spriteRotation == null)
         this.spriteRotation = this.GetComponent<SpriteRotation>();
       this.SetElement(Element.Earth);
       this.elementalAbility = this.GameObject.AddComponent<ElementalAbility>();
       this.elementalAbility.Init();
-    }*/
+    }
 
     private void SetMask(MaskType type)
     {
@@ -157,6 +157,7 @@ namespace GameManager.GameObjects.Components.PlayerComponents
       this.CombatComponent.Weapon = (Weapon) new Hammer();
       this.CombatComponent.Weapon.Owner = this.GameObject;
       this.CombatComponent.Weapon.UpdateStats();
+
       DatabaseManager.Instance.Repo.UpdateCharacterWeapon(this.SelectedElement, 
           this.CombatComponent.Weapon.AttackType);
     }
@@ -165,49 +166,67 @@ namespace GameManager.GameObjects.Components.PlayerComponents
 
     public void Draw(SpriteBatch spriteBatch)
     {
+      
       if (!this.ShowMap)
         return;
+
       Vector2 position1 = new Vector2(Game1.ScreenSize.X / 2f, Game1.ScreenSize.Y / 2f);
       Vector2 position2 = position1 - this.Transform.Position * this.MapZoom / 50f;
-      Vector2 origin1 = new Vector2((float) UIWorldMap.Instance.Texture.Width / 2f, (float) UIWorldMap.Instance.Texture.Height / 2f);
-      Game1.MapSpriteBatch.Draw(UIWorldMap.Instance.Texture, position2, new Rectangle?(), Color.White, 0.0f, origin1, this.MapZoom, SpriteEffects.None, 0.0f);
+
+      Vector2 origin1 = new Vector2((float) UIWorldMap.Instance.Texture.Width / 2f,
+          (float) UIWorldMap.Instance.Texture.Height / 2f);
+    
+      Game1.MapSpriteBatch.Draw(UIWorldMap.Instance.Texture, position2, new Rectangle?(),
+          Color.White, 0.0f, origin1, this.MapZoom, SpriteEffects.None, 0.0f);
       Texture2D texture1 = Glob.Content.Load<Texture2D>(this.MaskComponent.MaskUiSprite);
       Vector2 origin2 = new Vector2((float) texture1.Width / 2f, (float) texture1.Height / 2f);
-      Game1.MapSpriteBatch.Draw(texture1, position1, new Rectangle?(), this.maskSprite.Color, 0.0f, origin2, 0.4f, SpriteEffects.None, 0.0f);
+      Game1.MapSpriteBatch.Draw(texture1, position1, new Rectangle?(), this.maskSprite.Color, 0.0f,
+          origin2, 0.4f, SpriteEffects.None, 0.0f);
+      
       Texture2D texture2 = Glob.Content.Load<Texture2D>("QuestMarker");
       Vector2 origin3 = new Vector2((float) texture2.Width / 2f, (float) texture2.Height / 2f);
+      
+      // Quests
       for (int index1 = 0; index1 < Quest.Quests.Count; ++index1)
       {
         Quest quest = Quest.Quests[index1];
+
         if (quest.Complete)
-          Game1.MapSpriteBatch.Draw(texture2, position2 + quest.QuestGiver.Transform.Position * this.MapZoom / 50f, new Rectangle?(), Color.White, 0.0f, origin3, 4f, SpriteEffects.None, 0.0f);
+          Game1.MapSpriteBatch.Draw(texture2, position2 + quest.QuestGiver.Transform.Position * this.MapZoom / 50f, 
+              new Rectangle?(), Color.White, 0.0f, origin3, 4f, SpriteEffects.None, 0.0f);
+
         else if (quest is ClearDungeonQuest clearDungeonQuest)
         {
           for (int index2 = 0; index2 < Tilemap.Instance.DungeonEntrances.Count; ++index2)
           {
             DungeonEntrance dungeonEntrance = Tilemap.Instance.DungeonEntrances[index2];
             if (dungeonEntrance.Seed == clearDungeonQuest.DungeonSeed)
-              Game1.MapSpriteBatch.Draw(texture2, position2 + dungeonEntrance.Transform.Position * this.MapZoom / 50f, new Rectangle?(), Color.White, 0.0f, origin3, 4f, SpriteEffects.None, 0.0f);
+              Game1.MapSpriteBatch.Draw(texture2, position2 + dungeonEntrance.Transform.Position * this.MapZoom / 50f, 
+                  new Rectangle?(), 
+                  Color.White, 0.0f, origin3, 4f, SpriteEffects.None, 0.0f);
           }
         }
       }
-    }
 
-        // Replace the lines with DefaultInterpolatedStringHandler with string interpolation
-        public void Update()
-        {
-            this.RotateMaskSprite();
-            this.GetComponent<Animator>().PlayAnimation((double)this.Movement.Velocity.Length() > 0.0 ? "Run" : "Idle");
-            this.eyeSprite.SetSprite($"Eyes0{this.spriteRotation.RotationId}");
-            Quest.PerformCompletionChecks();
-        }
+    }//Draw
+
+    // 
+    public void Update()
+    {
+        this.RotateMaskSprite();
+        this.GetComponent<Animator>().PlayAnimation((double)this.Movement.Velocity.Length() > 0.0 ? "Run" : "Idle");
+        this.eyeSprite.SetSprite($"Eyes0{this.spriteRotation.RotationId}");
+
+        Quest.PerformCompletionChecks();
+    }
 
     public void LastUpdate()
     {
       for (int index = 0; index < Matoran.MatoranList.Count; ++index)
       {
         Matoran matoran = Matoran.MatoranList[index];
-        matoran.GameObject.SetActive((double) Vector2.Distance(this.Transform.Position, matoran.Transform.Position) < 6000.0);
+        matoran.GameObject.SetActive((double) 
+            Vector2.Distance(this.Transform.Position, matoran.Transform.Position) < 6000.0);
       }
       if (!(StateManager.Instance.CurrentState is OverworldState))
         return;
@@ -267,6 +286,7 @@ namespace GameManager.GameObjects.Components.PlayerComponents
           this.SetEyeColor(Color.OrangeRed);
           break;
       }
+
       this.toaSprite.Color = this.ElementColor;
       this.SelectedElement = element;
       this.CombatComponent.SelectedElement = element;

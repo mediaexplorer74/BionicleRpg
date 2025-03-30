@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.ObjectModel;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.NpcComponents
 {
   public abstract class Npc : Component

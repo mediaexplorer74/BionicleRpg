@@ -8,7 +8,7 @@ using GameManager.GameObjects.Components.PlayerComponents;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.Items.Masks
 {
   public class MaskEnergyBar : Component

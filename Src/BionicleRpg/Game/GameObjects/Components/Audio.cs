@@ -7,7 +7,7 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components
 {
   public class Audio : Component

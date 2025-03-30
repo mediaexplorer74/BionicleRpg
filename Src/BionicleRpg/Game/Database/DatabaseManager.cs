@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 using System.Linq;
 using Windows.Storage;
 
-#nullable disable
+
 namespace GameManager.Database
 {
   public class DatabaseManager

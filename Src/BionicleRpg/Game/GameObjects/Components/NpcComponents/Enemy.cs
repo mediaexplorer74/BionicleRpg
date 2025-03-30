@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.NpcComponents
 {
   public class Enemy : Npc

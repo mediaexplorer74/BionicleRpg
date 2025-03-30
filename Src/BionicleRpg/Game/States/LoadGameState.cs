@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 
-#nullable disable
+
 namespace GameManager.States
 {
   public class LoadGameState : IState
@@ -53,7 +53,11 @@ namespace GameManager.States
           button.UIStateAssign = UIStateAssign.LoadGame;
           button.Awake();
           button.Start();
-          new Text(this.saveGames[index].ID.ToString(), new Vector2(this.PreviousButtonPos.X, this.PreviousButtonPos.Y - 25f), Color.White, 2f, TextAlignment.Center).UIStateAssign = UIStateAssign.LoadGame;
+
+          new Text(this.saveGames[index].ID.ToString(), 
+              new Vector2(this.PreviousButtonPos.X, this.PreviousButtonPos.Y - 25f), 
+              Color.White, 2f, TextAlignment.Center).UIStateAssign = UIStateAssign.LoadGame;
+
           this.saveGameButtons[index] = button;
         }
       }
@@ -97,7 +101,9 @@ namespace GameManager.States
     {
       for (int index = 0; index < this.saveGameButtons.Length; ++index)
       {
-        if (this.saveGameButtons[index] != null && new Rectangle(this.mousePos.X, this.mousePos.Y, 1, 1).Intersects(this.saveGameButtons[index].Rectangle))
+        if (this.saveGameButtons[index] != null 
+                    && new Rectangle(this.mousePos.X, this.mousePos.Y, 1, 1)
+                    .Intersects(this.saveGameButtons[index].Rectangle))
           this.currentButton = index + 1;
       }
       return this.currentButton;

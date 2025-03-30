@@ -10,7 +10,7 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-#nullable disable
+
 namespace GameManager.DataTypes
 {
     public struct Rect2(Vector2 center, Vector2 size)

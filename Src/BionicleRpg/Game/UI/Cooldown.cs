@@ -8,7 +8,7 @@ using GameManager.GameObjects.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-#nullable disable
+
 namespace GameManager.UI
 {
   public class Cooldown : UIComponent

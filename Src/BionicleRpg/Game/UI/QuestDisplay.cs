@@ -4,19 +4,26 @@
 // MVID: A3C16972-042F-4654-B76B-0749FB030FA7
 // Modded by [M]edia[E]xplorer
 
+using GameManager.GameObjects;
 using GameManager.Quests;
 using Microsoft.Xna.Framework;
 
-#nullable disable
+
 namespace GameManager.UI
 {
   public class QuestDisplay : UIComponent
   {
-    private Vector2 startTextPosition = new Vector2(Game1.ScreenSize.X - 315f, 90f);
+    private Vector2 startTextPosition = new Vector2(Game1.ScreenSize.X - /*315f*/175f, 90f);
     private Text[] questNames;
     private string questProgress;
 
-    public QuestDisplay() => this.questNames = new Text[6];
+    public QuestDisplay()
+    {
+        this.questNames = new Text[6];
+    }
+
+    public QuestDisplay(GameObject gameObject) : this()
+    { }
 
     public void UpdateProgress(Quest quest)
     {
@@ -37,19 +44,24 @@ namespace GameManager.UI
           }
           break;
         case KillEnemiesQuest killEnemiesQuest:
-          this.questProgress = " " + killEnemiesQuest.KilledCount.ToString() + " / " + killEnemiesQuest.ToKill.ToString();
+          this.questProgress = " " + killEnemiesQuest.KilledCount.ToString()
+                        + " / " + killEnemiesQuest.ToKill.ToString();
           break;
         case CollectBambooQuest collectBambooQuest:
-          this.questProgress = " " + collectBambooQuest.Collected.ToString() + " / " + collectBambooQuest.ToGet.ToString();
+          this.questProgress = " " + collectBambooQuest.Collected.ToString()
+                        + " / " + collectBambooQuest.ToGet.ToString();
           break;
         case CollectHarakekeQuest collectHarakekeQuest:
-          this.questProgress = " " + collectHarakekeQuest.Collected.ToString() + " / " + collectHarakekeQuest.ToGet.ToString();
+          this.questProgress = " " + collectHarakekeQuest.Collected.ToString()
+                        + " / " + collectHarakekeQuest.ToGet.ToString();
           break;
         case CollectOreQuest collectOreQuest:
-          this.questProgress = " " + collectOreQuest.Collected.ToString() + " / " + collectOreQuest.ToGet.ToString();
+          this.questProgress = " " + collectOreQuest.Collected.ToString() 
+                        + " / " + collectOreQuest.ToGet.ToString();
           break;
         case CollectWoodQuest collectWoodQuest:
-          this.questProgress = " " + collectWoodQuest.Collected.ToString() + " / " + collectWoodQuest.ToGet.ToString();
+          this.questProgress = " " + collectWoodQuest.Collected.ToString()
+                        + " / " + collectWoodQuest.ToGet.ToString();
           break;
       }
       this.questNames[index].TextString = quest.Name + this.questProgress;
@@ -89,8 +101,12 @@ namespace GameManager.UI
               this.questProgress = " " + quest5.Collected.ToString() + " / " + quest5.ToGet.ToString();
               break;
           }
-          Text text = new Text(Quest.Quests[index].Name + this.questProgress, this.CalculateTextPos(index), 
-              Color.White, 0.75f, TextAlignment.Right);
+          Text text = new Text(
+              Quest.Quests[index].Name + this.questProgress, 
+              this.CalculateTextPos(index), 
+              /*Color.White*/Color.LightYellow, 
+              /*0.75f*/0.45f, 
+              TextAlignment.Right);
           text.UIStateAssign = UIStateAssign.Gameplay;
           text.IsShowing = true;
           this.questNames[index] = text;
@@ -107,7 +123,9 @@ namespace GameManager.UI
         if (Quest.Quests[index].IsMainQuest)
         {
           Text text = new Text(Quest.Quests[index].Name, 
-              new Vector2(Game1.ScreenSize.X - 100f, 200f), Color.White, 1f, TextAlignment.Left);
+              new Vector2(Game1.ScreenSize.X - /*100f*/50f, 200f), /*Color.White*/Color.LightGreen, 
+              /*1f*/0.55f, 
+              TextAlignment.Left);
           text.UIStateAssign = UIStateAssign.Gameplay;
           text.IsShowing = true;
           this.questNames[index] = text;

@@ -4,7 +4,7 @@
 // MVID: A3C16972-042F-4654-B76B-0749FB030FA7
 // Modded by [M]edia[E]xplorer
 
-#nullable disable
+
 namespace GameManager.Factories
 {
   public enum AttackType

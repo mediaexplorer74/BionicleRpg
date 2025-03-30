@@ -7,7 +7,7 @@
 using GameManager.Factories;
 using GameManager.GameObjects.Components;
 
-#nullable disable
+
 namespace GameManager.Database
 {
   public class CharacterData

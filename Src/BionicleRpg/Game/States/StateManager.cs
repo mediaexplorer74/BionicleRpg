@@ -7,7 +7,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-#nullable disable
+
 namespace GameManager.States
 {
   public class StateManager

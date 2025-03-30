@@ -9,7 +9,7 @@ using GameManager.GameObjects.Components;
 using Microsoft.Xna.Framework.Content;
 using System;
 
-#nullable disable
+
 namespace GameManager.Factories
 {
   public abstract class Factory

@@ -6,7 +6,7 @@
 
 using Microsoft.Xna.Framework.Graphics;
 
-#nullable disable
+
 namespace GameManager.States
 {
   public interface IState

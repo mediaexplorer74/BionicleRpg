@@ -9,7 +9,7 @@ using GameManager.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.NpcComponents
 {
   public class NameDisplay : Component
@@ -17,13 +17,11 @@ namespace GameManager.GameObjects.Components.NpcComponents
     private Npc npc;
     private Vector2 position;
 
-    public NameDisplay() 
-    {
+    public NameDisplay()
+    { }
         
-    }
     public NameDisplay(GameObject gameObject) : this()
-    {
-        
+    {       
     }
         
     public void Awake() => this.npc = this.GetComponent<Npc>();
@@ -43,7 +41,12 @@ namespace GameManager.GameObjects.Components.NpcComponents
 
     public void LastUpdate()
     {
-      this.position = new Vector2((float) ((double) this.npc.Transform.Position.X - (double) Player.Instance.Transform.Position.X + (double) Game1.ScreenSize.X / 2.0 - (double) UIManager.Instance.UIFont.MeasureString(this.npc.Name).X / 2.0 * 0.5), (float) ((double) this.npc.Transform.Position.Y - (double) Player.Instance.Transform.Position.Y + (double) Game1.ScreenSize.Y / 2.0 - 60.0));
+      this.position = new Vector2((float) (
+          (double) this.npc.Transform.Position.X - (double) Player.Instance.Transform.Position.X 
+          + (double) Game1.ScreenSize.X / 2.0 -
+          (double) UIManager.Instance.UIFont.MeasureString(this.npc.Name).X / 2.0 * 0.5), 
+          (float) ((double) this.npc.Transform.Position.Y - (double) Player.Instance.Transform.Position.Y 
+          + (double) Game1.ScreenSize.Y / 2.0 - 60.0));
     }
   }
 }

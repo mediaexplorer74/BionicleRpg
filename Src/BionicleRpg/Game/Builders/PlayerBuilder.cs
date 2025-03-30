@@ -10,7 +10,7 @@ using GameManager.GameObjects.Components.Lighting;
 using GameManager.GameObjects.Components.PlayerComponents;
 using Microsoft.Xna.Framework;
 
-#nullable disable
+
 namespace GameManager.Builders
 {
   public class PlayerBuilder : IBuilder

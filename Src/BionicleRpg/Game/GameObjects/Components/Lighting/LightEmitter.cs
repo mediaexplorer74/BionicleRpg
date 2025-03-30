@@ -8,7 +8,7 @@ using GameManager.DataTypes;
 using GameManager.GameObjects.Components.Tilemaps;
 using GameManager.Map;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.Lighting
 {
   public class LightEmitter : Component

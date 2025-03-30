@@ -9,7 +9,7 @@ using GameManager.GameObjects.Components.PlayerComponents;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-#nullable disable
+
 namespace GameManager.Commands
 {
   public class MoveCommand : ICommand

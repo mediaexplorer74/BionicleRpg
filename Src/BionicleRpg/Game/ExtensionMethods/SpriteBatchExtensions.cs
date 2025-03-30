@@ -7,7 +7,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-#nullable disable
+
 namespace GameManager
 {
   public static class StringBatchExtensions

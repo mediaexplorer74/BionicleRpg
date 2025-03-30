@@ -15,7 +15,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 
-#nullable disable
+
 namespace GameManager.GameObjects
 {
   public class GameObject
@@ -23,13 +23,9 @@ namespace GameManager.GameObjects
     private static readonly List<GameObject> gameObjects = new List<GameObject>();
     private bool hasInitialized;
     private readonly List<Component> components = new List<Component>();
-
     public static ReadOnlyCollection<GameObject> GameObjects => GameObject.gameObjects.AsReadOnly();
-
     public Transform Transform { get; } = new Transform();
-
     public ReadOnlyCollection<Component> Components => this.components.AsReadOnly();
-
     public bool IsActive { get; private set; } = true;
 
     public GameObject(bool isActive = true)
@@ -166,13 +162,16 @@ namespace GameManager.GameObjects
       for (int index = 0; index < this.components.Count; ++index)
       {
         if (ignoreEnabled || this.components[index].IsEnabled)
-          this.components[index].GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)?.Invoke((object) this.components[index], parameters);
+          this.components[index].GetType().GetMethod(methodName,
+              BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)?.Invoke(
+                  (object) this.components[index], parameters);
       }
     }
 
     public static void InvokeIfImplemented(object target, string methodName, object[] parameters)
     {
-      target.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)?.Invoke(target, parameters);
+      target.GetType().GetMethod(methodName, 
+          BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)?.Invoke(target, parameters);
     }
 
     public void OnCollision(Collider other)

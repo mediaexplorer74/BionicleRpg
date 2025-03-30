@@ -12,7 +12,7 @@ using GameManager.Quests;
 using GameManager.States;
 using Microsoft.Xna.Framework.Input;
 
-#nullable disable
+
 namespace GameManager.Commands
 {
   public class InteractCommand : ICommand
@@ -21,8 +21,8 @@ namespace GameManager.Commands
 
     public void Execute(PlayerController playerController, KeyState state)
     {
-      if (state == this.oldState)
-        return;
+      //if (state == this.oldState)
+      //  return;
       this.oldState = state;
       if (state != KeyState.Down)
         return;

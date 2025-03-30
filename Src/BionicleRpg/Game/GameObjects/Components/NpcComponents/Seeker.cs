@@ -12,7 +12,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components.NpcComponents
 {
   public class Seeker : Component

@@ -8,7 +8,7 @@ using GameManager.Factories;
 using GameManager.ObjectPool;
 using Microsoft.Xna.Framework;
 
-#nullable disable
+
 namespace GameManager.GameObjects.Components
 {
   public class Projectile : Component

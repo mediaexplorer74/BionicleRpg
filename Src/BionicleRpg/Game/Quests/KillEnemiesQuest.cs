@@ -7,7 +7,7 @@
 using GameManager.GameObjects.Components.NpcComponents;
 using System;
 
-#nullable disable
+
 namespace GameManager.Quests
 {
   public class KillEnemiesQuest : Quest

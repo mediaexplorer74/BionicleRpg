@@ -1,4 +1,4 @@
-# BionicleRPG 1.0-prealpha - main branch 
+# BionicleRPG 1.0-alpha - main branch 
 ![Logo](Images/logo.png)
 
 ## About 
@@ -9,6 +9,7 @@ Use mask powers to find new ways to explore the world around you. Visit all the 
 Help the Matoran villagers by accepting quests. Venture out into the world to gather materials, clear dungeons or defeat enemies." 
 
 ## My 2 cents
+- UI little bugs (Mask shownig, etc.) fixed at now :)
 - Pathfinder repaired via AI in MS Copilot (thanks to VS 2022 Preview))
 - Player movements fixed
 - Near weapon (left button click) activated
@@ -28,6 +29,8 @@ Help the Matoran villagers by accepting quests. Venture out into the world to ga
 ## Screenshots
 ![W11](Images/sshot01.png)
 ![W11](Images/sshot02.png)
+![W11](Images/sshot03.png)
+![W11](Images/sshot04.png)
 
 ## Tech details
 - Early bird. I plan to use this thing as template ("sketch") to simplify some adventure game dev in future:)
@@ -35,13 +38,14 @@ Help the Matoran villagers by accepting quests. Venture out into the world to ga
 
 
 ## ToDo
-- Explore all code once again
 - Realize some more complex game process ;)
 - Fix 100500 bugs after dirty R.E. (constructors, items, sting builders, etc.)
+- Add some touch-friendly UI (if it possible)
 
 
 ## Reference(s)
-https://ripofirm.itch.io/bionicle-destiny-of-the-toa Original project
+- https://ripofirm.itch.io/bionicle-destiny-of-the-toa Original "Bionicle Destiny of the Toa" project
+- https://www.youtube.com/watch?v=oL-UjJF-JFA Bionicle Destiny of the Toa - Gameplay Trailer (1 min.)
 
 ## .
 As is. No support. DIY. Learn purposes only.
