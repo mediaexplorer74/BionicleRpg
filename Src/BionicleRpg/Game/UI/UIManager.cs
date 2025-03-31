@@ -143,14 +143,14 @@ namespace GameManager.UI
           new Vector2(
               Game1.ScreenSize.X / 2f, // offset x ?
               Game1.ScreenSize.Y / 2f), // offset y ?
-              /*1f*/0.5f) //scale
+              /*1f*/0.55f) //scale
             .UIStateAssign = UIStateAssign.LoadGame;
 
       new Image("UI_LoadingScreen", 
           new Vector2(
               Game1.ScreenSize.X / 2f, 
               Game1.ScreenSize.Y / 2f), 
-              /*1f*/0.5f)
+              /*1f*/0.55f)
              .UIStateAssign = UIStateAssign.Loading;
 
 
@@ -199,9 +199,9 @@ namespace GameManager.UI
       Button button4 = new Button("Button_Return", 
           new Vector2(
               Game1.ScreenSize.X / 2f, 
-              Game1.ScreenSize.Y /*- 150f*/ + 175f));
-      //RnD
-      button4.UIStateAssign = UIStateAssign.StartMenu;//UIStateAssign.LoadGame;
+              Game1.ScreenSize.Y /2f /*- 150f*/ + 175f));
+      
+      button4.UIStateAssign = UIStateAssign.LoadGame;
 
       button4.Click += new EventHandler(this.ReturnButton_Click);
     }

@@ -21,11 +21,14 @@ namespace GameManager.Commands
 
     public void Execute(PlayerController playerController, KeyState state)
     {
-      //if (state == this.oldState)
-      //  return;
+       //RnD: remark it if keyboard control state unstable
+       //if (state == this.oldState)
+       // return;
+
       this.oldState = state;
       if (state != KeyState.Down)
         return;
+
       if (Player.Instance.QuestGiver != null)
       {
         if (Player.Instance.QuestGiver.Quest.Complete)
@@ -43,14 +46,27 @@ namespace GameManager.Commands
           case TileType.DungeonEntrance:
             tile.GameObject.GetComponent<DungeonEntrance>().Enter();
             break;
+
           case TileType.DungeonExit:
-            StateManager.Instance.RemoveScreen();
+            //RnD: StateManager using
+            //StateManager.Instance.RemoveScreen();
+            tile.GameObject.GetComponent<DungeonExit>().Exit();
             break;
+
           case TileType.Savestone:
             DatabaseManager.Instance.SaveGame();
             break;
+
+          //RnD : try exit from dungeon - plan B
+          /*default:
+                //RnD: StateManager.screens.count try
+                if (StateManager.screens.Count > 1)
+                {
+                    StateManager.Instance.RemoveScreen();                  
+                }
+           break;*/
         }
       }
-    }
+    }//Execute
   }
 }

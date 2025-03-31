@@ -7,6 +7,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
 using System;
 
 
@@ -14,16 +15,19 @@ namespace GameManager.UI
 {
   public class Button : UIComponent
   {
-    private MouseState currentMouse;
-    private MouseState previousMouse;
-    private Color color;
-    private bool isHovering;
+     private MouseState currentMouse;
+     private MouseState previousMouse;
+     private TouchCollection currentTouch;
+     private TouchCollection previousTouch;
+     
+     private Color color;
+     private bool isHovering;
 
-    public event HoverEventHandler HoverEvent;
+     public event HoverEventHandler HoverEvent;
 
-    public event EventHandler Click;
+     public event EventHandler Click;
 
-    public Rectangle Rectangle
+     public Rectangle Rectangle
     {
       get
       {
@@ -45,31 +49,76 @@ namespace GameManager.UI
     public override void Awake()
     {
       this.Sprite = Glob.Content.Load<Texture2D>(this.spriteName);
-      this.origin = new Vector2((float) (this.Sprite.Width / 2), (float) (this.Sprite.Height / 2));
+      this.origin = new Vector2(
+          (float) (this.Sprite.Width / 2), 
+          (float) (this.Sprite.Height / 2));
     }
 
     public override void Draw(SpriteBatch spriteBatch)
     {
+      //RnD : button color
       this.color = Color.White;
+
       if (this.isHovering)
         this.OnHoverEvent();
-      spriteBatch.Draw(this.Sprite, this.position, new Rectangle?(),
-          this.color, 0.0f, this.origin, this.scale, SpriteEffects.None, 0.0f);
+
+      spriteBatch.Draw(this.Sprite, 
+          this.position, 
+          new Rectangle?(),
+          this.color, 
+          0.0f, 
+          this.origin, 
+          this.scale, SpriteEffects.None, 0.0f);
     }
 
     public override void Update()
     {
       this.previousMouse = this.currentMouse;
       this.currentMouse = Mouse.GetState();
-      Rectangle rectangle = new Rectangle(this.currentMouse.X, this.currentMouse.Y, 1, 1);
+      this.previousTouch = this.currentTouch;
+      this.currentTouch = TouchPanel.GetState();
+
+       // form Mouse intersect zone
+       Rectangle mouserectangle = new Rectangle(
+          (int)(this.currentMouse.X / Game1.screenScale.X),
+          (int)(this.currentMouse.Y / Game1.screenScale.Y),
+          1, 1);
+
+      float TPosX = 0;
+      float TPosY = 0;
+
+      if (this.currentTouch.Count > 0)
+      {
+        TPosX = this.currentTouch[0].Position.X;
+        TPosY = this.currentTouch[0].Position.Y;
+      }
+
+      Rectangle touchrectangle = new Rectangle
+      ( (int)(TPosX / Game1.screenScale.X), 
+        (int)(TPosY / Game1.screenScale.Y), 
+        1, 1  );
+
       this.isHovering = false;
-      if (!rectangle.Intersects(this.Rectangle))
+      if ( !mouserectangle.Intersects(this.Rectangle)
+             &&
+       !touchrectangle.Intersects(this.Rectangle) )
         return;
       this.isHovering = true;
-      if (this.currentMouse.LeftButton != ButtonState.Released 
-                || this.previousMouse.LeftButton != ButtonState.Pressed)
-        return;
+
+        if
+        (
+            (this.currentMouse.LeftButton != ButtonState.Released
+                    || this.previousMouse.LeftButton != ButtonState.Pressed)
+         && ( this.currentTouch.Count == 0)
+        )
+        {
+            //this.isHovering = false;
+            return;
+        }
+
       this.OnClickEvent();
+      this.previousTouch = this.currentTouch;
+      this.previousMouse = this.currentMouse;
     }
 
     private void OnHoverEvent()
@@ -77,15 +126,24 @@ namespace GameManager.UI
       this.color = Color.DarkGray;
       HoverEventHandler hoverEvent = this.HoverEvent;
       if (hoverEvent == null)
+      {
+        //this.color = Color.White;
         return;
+      }
       hoverEvent(this);
     }
 
     private void OnClickEvent()
     {
       EventHandler click = this.Click;
+      //this.color = Color.White;
+      //this.isHovering = false;
       if (click == null)
-        return;
+      {
+          
+          return;
+      }
+
       click((object) this, new EventArgs());
     }
   }

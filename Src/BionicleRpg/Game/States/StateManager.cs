@@ -12,7 +12,7 @@ namespace GameManager.States
 {
   public class StateManager
   {
-    private Stack<IState> screens = new Stack<IState>();
+    /*private*/ public static Stack<IState> screens = new Stack<IState>();
     private static StateManager instance;
 
     public static StateManager Instance
@@ -26,30 +26,36 @@ namespace GameManager.States
       }
     }
 
-    public IState CurrentState => this.screens.Peek();
+    public IState CurrentState
+    {
+        get
+        {
+            return /*this.*/screens.Peek();
+        }
+    }
 
     public void AddScreen(IState screen)
     {
-      if (this.screens.Count > 0)
-        this.screens.Peek().Exit();
+      if (screens.Count > 0)
+        screens.Peek().Exit();
 
-      this.screens.Push(screen);
-      this.screens.Peek().Enter();
+      screens.Push(screen);
+      screens.Peek().Enter();
     }
 
     public void RemoveScreen()
     {
-      if (this.screens.Count <= 0)
+      if (screens.Count <= 0)
         return;
 
-      this.screens.Pop().Exit();
-      this.screens.Peek().Enter();
+      screens.Pop().Exit();
+      screens.Peek().Enter();
     }
 
     public void ClearScreens()
     {
-      while (this.screens.Count > 0)
-        this.screens.Pop().Exit();
+      while (screens.Count > 0)
+        screens.Pop().Exit();
     }
 
     public void ChangeScreen(IState screen)
@@ -60,14 +66,14 @@ namespace GameManager.States
 
     public void Update()
     {
-      if (this.screens.Count <= 0)
+      if (screens.Count <= 0)
         return;
       this.CurrentState.Update();
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
-      if (this.screens.Count <= 0)
+      if (screens.Count <= 0)
         return;
       this.CurrentState.Draw(spriteBatch);
     }

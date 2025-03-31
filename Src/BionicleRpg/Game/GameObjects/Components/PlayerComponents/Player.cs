@@ -37,15 +37,10 @@ namespace GameManager.GameObjects.Components.PlayerComponents
     public Mask MaskComponent;
     private Audio audioComponent;
     private MaskEnergyBar maskEnergyBar;
-
     public Health HealthComponent { get; set; }
-
     public Combat CombatComponent { get; set; }
-
     public Inventory InventoryComponent { get; set; }
-
     public static Player Instance { get; set; }
-
     public PlayerController Controller { get; }
 
     public Movement Movement { get; }
@@ -59,8 +54,7 @@ namespace GameManager.GameObjects.Components.PlayerComponents
     public LightEmitter Light { get; }
 
     public Player() 
-    {
-        
+    {        
     }
 
     public Player(GameObject gameObject) : this()
@@ -98,7 +92,10 @@ namespace GameManager.GameObjects.Components.PlayerComponents
       this.maskSprite.PosOffset = offset;
     }
 
-    public Vector2 GetToaOffset() => this.toaSprite.PosOffset;
+    public Vector2 GetToaOffset()
+    {
+        return this.toaSprite.PosOffset;
+    }
 
     public void SetToaLayerOffset(float offset)
     {
@@ -170,6 +167,7 @@ namespace GameManager.GameObjects.Components.PlayerComponents
       if (!this.ShowMap)
         return;
 
+      // Draw Map objects here
       Vector2 position1 = new Vector2(Game1.ScreenSize.X / 2f, Game1.ScreenSize.Y / 2f);
       Vector2 position2 = position1 - this.Transform.Position * this.MapZoom / 50f;
 
@@ -192,7 +190,8 @@ namespace GameManager.GameObjects.Components.PlayerComponents
         Quest quest = Quest.Quests[index1];
 
         if (quest.Complete)
-          Game1.MapSpriteBatch.Draw(texture2, position2 + quest.QuestGiver.Transform.Position * this.MapZoom / 50f, 
+          Game1.MapSpriteBatch.Draw(texture2, position2 
+              + quest.QuestGiver.Transform.Position * this.MapZoom / 50f, 
               new Rectangle?(), Color.White, 0.0f, origin3, 4f, SpriteEffects.None, 0.0f);
 
         else if (quest is ClearDungeonQuest clearDungeonQuest)
@@ -200,10 +199,15 @@ namespace GameManager.GameObjects.Components.PlayerComponents
           for (int index2 = 0; index2 < Tilemap.Instance.DungeonEntrances.Count; ++index2)
           {
             DungeonEntrance dungeonEntrance = Tilemap.Instance.DungeonEntrances[index2];
+
             if (dungeonEntrance.Seed == clearDungeonQuest.DungeonSeed)
-              Game1.MapSpriteBatch.Draw(texture2, position2 + dungeonEntrance.Transform.Position * this.MapZoom / 50f, 
+              Game1.MapSpriteBatch.Draw(
+                  texture2, position2 + dungeonEntrance.Transform.Position * this.MapZoom / 50f, 
                   new Rectangle?(), 
-                  Color.White, 0.0f, origin3, 4f, SpriteEffects.None, 0.0f);
+                  Color.White, 
+                  0.0f, origin3, 
+                  4f, 
+                  SpriteEffects.None, 0.0f);
           }
         }
       }
@@ -214,7 +218,12 @@ namespace GameManager.GameObjects.Components.PlayerComponents
     public void Update()
     {
         this.RotateMaskSprite();
-        this.GetComponent<Animator>().PlayAnimation((double)this.Movement.Velocity.Length() > 0.0 ? "Run" : "Idle");
+
+        this.GetComponent<Animator>()
+                .PlayAnimation((double)this.Movement.Velocity.Length() > 0.0 
+                ? "Run" 
+                : "Idle");
+
         this.eyeSprite.SetSprite($"Eyes0{this.spriteRotation.RotationId}");
 
         Quest.PerformCompletionChecks();
@@ -303,7 +312,8 @@ namespace GameManager.GameObjects.Components.PlayerComponents
         {
             if (this.maskSprite == null)
                 return;
-            this.maskSprite.SetSprite($"{this.MaskComponent.MaskSprite}0{this.spriteRotation.RotationId}");
+            this.maskSprite.SetSprite(
+                $"{this.MaskComponent.MaskSprite}0{this.spriteRotation.RotationId}");
             this.maskSprite.OrderInLayer = -1;
         }
   }

@@ -7,6 +7,7 @@
 using GameManager.Commands;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
 using System;
 
 
@@ -14,6 +15,9 @@ namespace GameManager.GameObjects.Components.PlayerComponents
 {
   public class PlayerController : Component
   {
+     private MouseState OldMouseState = Mouse.GetState();
+     private Vector2 V2 = new Vector2(0, 0);
+
     public PlayerController() 
     { }
     
@@ -27,25 +31,50 @@ namespace GameManager.GameObjects.Components.PlayerComponents
     public void Update()
     {
       InputHandler.Instance.Execute(this);
+
       this.MouseAim();
     }
 
     private void MouseAim()
     {
-      MouseState state = Mouse.GetState();
+        MouseState MouseState = Mouse.GetState();
+        TouchCollection TouchState = TouchPanel.GetState();        
 
-      Vector2 vector2 = new Vector2((float) state.X 
-          - (float) ((double) this.Transform.Position.X 
-          - (double) Player.Instance.Transform.Position.X + (double) Game1.ScreenSize.X / 2.0),
-          (float) state.Y - (float) ((double) this.Transform.Position.Y 
-          - (double) Player.Instance.Transform.Position.Y 
-          + (double) Game1.ScreenSize.Y / 2.0));
+        if (TouchState.Count > 0 )
+        {
+            V2 = new Vector2((float)TouchState[0].Position.X / Game1.screenScale.X
+                    - (float)((double)this.Transform.Position.X
+                   - (double)Player.Instance.Transform.Position.X 
+                     + (double)Game1.ScreenSize.X / 2.0),
+                (float)TouchState[0].Position.Y / Game1.screenScale.Y
+                - (float)((double)this.Transform.Position.Y
+                   - (double)Player.Instance.Transform.Position.Y
+                    + (double)Game1.ScreenSize.Y / 2.0));
+        }
+        else if (OldMouseState.Position.X != MouseState.Position.X ||
+                OldMouseState.Position.Y != MouseState.Position.Y)
+            {
+            try
+            {
+                V2 = new Vector2((float)MouseState.X / Game1.screenScale.X
+                        - (float)((double)this.Transform.Position.X
+                    - (double)Player.Instance.Transform.Position.X
+                    + (double)Game1.ScreenSize.X / 2.0),
+                    (float)MouseState.Y / Game1.screenScale.Y
+                    - (float)((double)this.Transform.Position.Y
+                    - (double)Player.Instance.Transform.Position.Y
+                    + (double)Game1.ScreenSize.Y / 2.0));
+            }
+            catch { }
+       }
 
-      this.AimDirection = (float) Math.Atan2((double) vector2.X, (double) vector2.Y);
-      this.GetComponent<Combat>().AimDirection = this.AimDirection;
+       this.AimDirection = (float) Math.Atan2((double) V2.X, (double) V2.Y);
+       this.GetComponent<Combat>().AimDirection = this.AimDirection;
 
-      this.Transform.WorldDirection 
+       this.Transform.WorldDirection 
                 = MathHelper.ToDegrees(this.AimDirection);
-    }
+
+       this.OldMouseState = MouseState;
+     }
   }
 }

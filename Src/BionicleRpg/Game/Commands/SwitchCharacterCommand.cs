@@ -28,10 +28,15 @@ namespace GameManager.Commands
       this.cooldown = new Cooldown(position, 3f);
     }
 
+
+
     public void Execute(PlayerController playerController, KeyState state)
     {
-      if (state != KeyState.Down || Player.Instance.ShowMap || Player.Instance.SelectedElement == this.element)
+      if (state != KeyState.Down 
+                || Player.Instance.ShowMap 
+                || Player.Instance.SelectedElement == this.element)
         return;
+
       foreach (UIComponent uiComponent in UIComponent.UIComponents)
       {
         if (uiComponent is Cooldown cooldown)
@@ -48,6 +53,29 @@ namespace GameManager.Commands
         return;
       Player.Instance.SetCharacter(this.element);
       this.cooldown.StartCooldown(this.imageType);
+    }//Execute
+
+
+        public void Execute2()
+        {
+           
+            foreach (UIComponent uiComponent in UIComponent.UIComponents)
+            {
+                if (uiComponent is Cooldown cooldown)
+                {
+                    if (cooldown.Active)
+                    {
+                        this.playCooldown = false;
+                        return;
+                    }
+                    this.playCooldown = true;
+                }
+            }
+            if (!this.playCooldown)
+                return;
+            Player.Instance.SetCharacter(this.element);
+            this.cooldown.StartCooldown(this.imageType);
+        }
+
     }
-  }
 }

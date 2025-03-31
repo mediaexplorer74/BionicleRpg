@@ -28,6 +28,7 @@ namespace GameManager.Commands
     {
       if (Player.Instance.MaskComponent == null)
         return;
+
       if (state == KeyState.Down && !Player.Instance.MaskComponent.PowerActive)
       {
         Player.Instance.MaskComponent.ActivateMaskPower();
@@ -36,6 +37,25 @@ namespace GameManager.Commands
       if (state != KeyState.Up || !Player.Instance.MaskComponent.PowerActive)
         return;
       Player.Instance.MaskComponent.DeactivateMaskPower();
+    }//Execute
+
+
+    // Execute2 (Experimental)
+    public void Execute2()
+    {
+        if (Player.Instance.MaskComponent == null)
+            return;
+
+        if (!Player.Instance.MaskComponent.PowerActive)
+        {
+            Player.Instance.MaskComponent.ActivateMaskPower();
+            this.cooldown.StartCooldown(this.imageType);
+        }
+
+       // if (!Player.Instance.MaskComponent.PowerActive)
+       //     return;
+       // Player.Instance.MaskComponent.DeactivateMaskPower();
     }
-  }
+
+    }
 }

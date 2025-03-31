@@ -36,7 +36,9 @@ namespace GameManager.GameObjects.Components.Items.Masks
             if ((double)this.MaskEnergy < 0.10000000149011612)
                 return;
             this.PowerActive = true;
-            Player.Instance.Light.UpdateLightSettings(new LightColor?(), new int?(5), new float?(1f), new float?());
+            Player.Instance.Light.UpdateLightSettings(
+                new LightColor?(), new int?(5), new float?(1f), 
+                new float?());
             Player.Instance.UpdateCombatStats();
         }
 

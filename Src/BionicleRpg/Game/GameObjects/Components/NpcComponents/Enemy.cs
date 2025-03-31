@@ -25,12 +25,9 @@ namespace GameManager.GameObjects.Components.NpcComponents
     private static Vector2 lastKnownPlayerPos;
     private static Vector2 lastKnownPlayerVelocity;
     private static double playerLastSpotted = double.NegativeInfinity;
-
     public static ReadOnlyCollection<Enemy> Enemies => Enemy.enemies.AsReadOnly();
-
     public static EventHandler OnEnemyDeath { get; set; }
 
-    
     public Enemy() 
     {
         this.Name = "Fikou Spider";
@@ -55,7 +52,8 @@ namespace GameManager.GameObjects.Components.NpcComponents
 
     protected override void Death()
     {
-      Enemy.OnEnemyDeath((object) this, (EventArgs) null);
+      if (Enemy.OnEnemyDeath != null)
+        Enemy.OnEnemyDeath(this, default);
       Enemy.enemies.Remove(this);
       base.Death();
     }
@@ -71,7 +69,9 @@ namespace GameManager.GameObjects.Components.NpcComponents
       }
       if (num1 != 0)
       {
-        double num2 = this.firstSawPlayer + (double) Npc.GetReactionTime(this.CurrentBehaviorState) + (double) this.extraReactionTime;
+        double num2 = this.firstSawPlayer + 
+                    (double) Npc.GetReactionTime(this.CurrentBehaviorState) 
+                    + (double) this.extraReactionTime;
         totalGameTime = gameTime.TotalGameTime;
         double totalSeconds = totalGameTime.TotalSeconds;
         if (num2 > totalSeconds)

@@ -22,7 +22,13 @@ namespace GameManager.GameObjects.Components
     private SpriteRenderer spriteRenderer;
     private static Texture2D texture;
 
-    public static ReadOnlyCollection<Collider> Colliders => Collider.colliders.AsReadOnly();
+    public static ReadOnlyCollection<Collider> Colliders
+    {
+        get
+        {
+            return Collider.colliders.AsReadOnly();
+        }
+    }
 
     public Rectangle CollisionBox
     {
@@ -107,14 +113,19 @@ namespace GameManager.GameObjects.Components
       if ((double) Math.Abs(this.Transform.Position.Y - other.Transform.Position.Y) > (double) Math.Abs(this.Transform.Position.X - other.Transform.Position.X))
       {
         if ((double) this.Transform.Position.Y > (double) other.Transform.Position.Y)
-          this.Transform.Translate(new Vector2(0.0f, (float) Rectangle.Intersect(this.CollisionBox, other.CollisionBox).Height));
+          this.Transform.Translate(new Vector2(0.0f, 
+              (float) Rectangle.Intersect(this.CollisionBox, other.CollisionBox).Height));
         else
-          this.Transform.Translate(new Vector2(0.0f, (float) -Rectangle.Intersect(this.CollisionBox, other.CollisionBox).Height));
+          this.Transform.Translate(
+              new Vector2(0.0f, (float) -Rectangle.Intersect(
+                  this.CollisionBox, other.CollisionBox).Height));
       }
       else if ((double) this.Transform.Position.X > (double) other.Transform.Position.X)
-        this.Transform.Translate(new Vector2((float) Rectangle.Intersect(this.CollisionBox, other.CollisionBox).Width, 0.0f));
+        this.Transform.Translate(new Vector2(
+            (float) Rectangle.Intersect(this.CollisionBox, other.CollisionBox).Width, 0.0f));
       else
-        this.Transform.Translate(new Vector2((float) -Rectangle.Intersect(this.CollisionBox, other.CollisionBox).Width, 0.0f));
+        this.Transform.Translate(new Vector2(
+            (float) -Rectangle.Intersect(this.CollisionBox, other.CollisionBox).Width, 0.0f));
     }
 
     public static void ClearAll()

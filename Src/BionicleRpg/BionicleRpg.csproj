@@ -168,6 +168,7 @@
     <Compile Include="Game\GameObjects\Components\Collider.cs" />
     <Compile Include="Game\GameObjects\Components\Combat.cs" />
     <Compile Include="Game\GameObjects\Components\Component.cs" />
+    <Compile Include="Game\GameObjects\Components\DungeonExit.cs" />
     <Compile Include="Game\GameObjects\Components\DungeonEntrance.cs" />
     <Compile Include="Game\GameObjects\Components\Element.cs" />
     <Compile Include="Game\GameObjects\Components\ElementalAbility.cs" />
@@ -352,10 +353,10 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.8</Version>
+      <Version>6.2.14</Version>
     </PackageReference>
     <PackageReference Include="MonoGame.Framework.WindowsUniversal">
-      <Version>3.8.0.1641</Version>
+      <Version>3.7.1.189</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.3</Version>
@@ -570,9 +571,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Deco_Mountain_N_6.xnb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\DungeonEntrance - Copy.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\DungeonEntrance.xnb">

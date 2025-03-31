@@ -71,7 +71,8 @@ namespace GameManager.GameObjects.Components
       }
       else
       {
-        if (!Player.Instance.GetComponent<Collider>().CollisionBox.Intersects(this.CollisionBox))
+        if (!Player.Instance.GetComponent<Collider>().CollisionBox.Intersects(
+            this.CollisionBox))
           return;
         Player.Instance.GameObject.OnCollision(Player.Instance, component.Damage);
       }

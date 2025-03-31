@@ -13,17 +13,20 @@ namespace GameManager.States
 {
   public class OverworldState : IState
   {
-    public const int OverworldMapSize = 1000;
+    //RnD
+    public const int OverworldMapSize = 250;//1000;
     private bool wasInitialized;
 
     public void Enter()
     {
       if (!this.wasInitialized)
       {
-        Game1.CreateWorld(1000, 1000);
+        Game1.CreateWorld(Game1.WorldSizeX, Game1.WorldSizeY);
         Game1.InitGameObjects();
+        
         this.wasInitialized = true;
       }
+
       UIManager.Instance.ShowUIComponent(UIStateAssign.Gameplay, true);
     }
 
@@ -31,8 +34,14 @@ namespace GameManager.States
     {
     }
 
-    public void Update() => EnemySpawner.Instance.Update();
+    public void Update()
+    {
+        EnemySpawner.Instance.Update();
+    }
 
-    public void Exit() => UIManager.Instance.ShowUIComponent(UIStateAssign.Gameplay, false);
-  }
+    public void Exit()
+    {
+        UIManager.Instance.ShowUIComponent(UIStateAssign.Gameplay, false);
+    }
+}
 }

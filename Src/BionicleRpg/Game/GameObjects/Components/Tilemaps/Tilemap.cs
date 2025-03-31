@@ -32,8 +32,16 @@ namespace GameManager.GameObjects.Components.Tilemaps
     private const int RenderRange = 20;
     private Tilemap.Tile oldPlayerTile;
     private readonly List<GameObject> resources = new List<GameObject>();
-    private readonly List<DungeonEntrance> dungeonEntrances = new List<DungeonEntrance>();
-    private readonly List<Vector2> savestoneLocations = new List<Vector2>();
+
+    private readonly List<DungeonEntrance> 
+            dungeonEntrances = new List<DungeonEntrance>();
+
+    private readonly List<DungeonExit>
+            dungeonExits = new List<DungeonExit>();
+
+    private readonly List<Vector2> savestoneLocations 
+        = new List<Vector2>();
+
     public const int Scale = 50;
     private static bool waterCollisionEnabled = true;
     private static bool isPlayerLevitating = false;
@@ -45,7 +53,8 @@ namespace GameManager.GameObjects.Components.Tilemaps
 
     public Random Random { get; private set; }
     public static Rect2 BuildingRect { get; private set; } 
-            = new Rect2((Vector2) new Vector2Int(0, 0), (Vector2) new Vector2Int(30, 30));
+            = new Rect2((Vector2) new Vector2Int(0, 0), 
+                (Vector2) new Vector2Int(30, 30));
     public Coordinate2DArray<Tilemap.Tile> Tiles { get; private set; }
     public static Tilemap Instance { get; private set; }
     public int Width { get; set; }
@@ -90,7 +99,10 @@ namespace GameManager.GameObjects.Components.Tilemaps
     public Tilemap.Tile GetTile(Vector2 worldPos)
     {
       Vector2Int vector2Int = Vector2Int.RoundToInt(worldPos / 50f);
-      return this.IsOutOfTileBounds(vector2Int) ? (Tilemap.Tile) null : this.Tiles[vector2Int];
+
+      return this.IsOutOfTileBounds(vector2Int) 
+                ? (Tilemap.Tile) null 
+                : this.Tiles[vector2Int];
     }
 
     public Vector2Int GetTileOffsetPos(int offsetDir, Vector2Int tilePos)
@@ -201,21 +213,41 @@ namespace GameManager.GameObjects.Components.Tilemaps
       UIWorldMap.Instance.GenerateNew(this.Width, this.Height);
       if (StateManager.Instance.CurrentState is OverworldState)
       {
-        Texture2D texture1 = Glob.Content.Load<Texture2D>("Tile_SettlementFloor");
-        Texture2D mountainTexture = Glob.Content.Load<Texture2D>("Tile_Mountain");
-        Texture2D texture2 = Glob.Content.Load<Texture2D>("Tile_Water");
-        Texture2D texture3 = Glob.Content.Load<Texture2D>("Tile_Tree");
-        Texture2D texture4 = Glob.Content.Load<Texture2D>("Tile_ForestFloor");
-        Texture2D texture2D = Glob.Content.Load<Texture2D>("DungeonEntrance");
-        Texture2D texture5 = Glob.Content.Load<Texture2D>("Tile_PlainsFloor");
-        Texture2D texture6 = Glob.Content.Load<Texture2D>("Tile_Sand");
-        Texture2D texture7 = Glob.Content.Load<Texture2D>("Savestone");
+        Texture2D SettlementFloorTexture = 
+                    Glob.Content.Load<Texture2D>("Tile_SettlementFloor");
+        Texture2D MountainTexture = 
+                    Glob.Content.Load<Texture2D>("Tile_Mountain");
+        Texture2D WaterTexture = 
+                    Glob.Content.Load<Texture2D>("Tile_Water");
+        Texture2D TreeTexture = 
+                    Glob.Content.Load<Texture2D>("Tile_Tree");
+        Texture2D ForestFloorTexture = 
+                    Glob.Content.Load<Texture2D>("Tile_ForestFloor");
+
+        Texture2D DungeonEntranceTexture = 
+                    Glob.Content.Load<Texture2D>("DungeonEntrance");
+        Texture2D DungeonExitTexture =
+            Glob.Content.Load<Texture2D>("DungeonExit");
+
+        Texture2D PlainsFloorTexture = 
+                    Glob.Content.Load<Texture2D>("Tile_PlainsFloor");
+        Texture2D SandTexture = 
+                    Glob.Content.Load<Texture2D>("Tile_Sand");
+        Texture2D SavestoneTexture = 
+                    Glob.Content.Load<Texture2D>("Savestone");
+
         List<Tilemap.Decoration> decorations1 = this.LoadBiomeDecorations("Building");
+
         this.LoadBiomeDecorations("Settlement");
-        List<Tilemap.Decoration> mountainDecorations = this.LoadBiomeDecorations("Mountain");
-        List<Tilemap.Decoration> decorations2 = this.LoadBiomeDecorations("Beach");
-        List<Tilemap.Decoration> decorations3 = this.LoadBiomeDecorations("Forest");
-        List<Tilemap.Decoration> decorations4 = this.LoadBiomeDecorations("Fields");
+        List<Tilemap.Decoration> mountainDecorations = 
+                    this.LoadBiomeDecorations("Mountain");
+        List<Tilemap.Decoration> decorations2 = 
+                    this.LoadBiomeDecorations("Beach");
+        List<Tilemap.Decoration> decorations3 = 
+                    this.LoadBiomeDecorations("Forest");
+        List<Tilemap.Decoration> decorations4 = 
+                    this.LoadBiomeDecorations("Fields");
+
         FastNoiseLite fastNoiseLite1 = new FastNoiseLite(this.Seed);
         fastNoiseLite1.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2);
         fastNoiseLite1.SetFrequency(0.01f);
@@ -245,19 +277,28 @@ namespace GameManager.GameObjects.Components.Tilemaps
             bool flag1 = x > this.HalfWidth - 105 || x < -this.HalfWidth + 105
                             || y > this.HalfWidth - 105 || y < -this.HalfWidth + 105;
 
-            if (!flag1 && (double) settlementNoiseMap.GetNoise((float) x, (float) y) > 0.85000002384185791)
+            if (!flag1 
+                && (double) settlementNoiseMap.GetNoise(
+                    (float)x, (float)y) > 0.85000002384185791)
             {
               Color saddleBrown = Color.SaddleBrown;
-              floorObj = this.CreateTileObject(vector2Int1, texture1, TileShadowType.None, saddleBrown);
+
+                            floorObj = this.CreateTileObject(
+                                vector2Int1,
+                                SettlementFloorTexture,
+                                TileShadowType.None,
+                                saddleBrown);
+
               bool flag2 = false;
 
              
               if (this.Random.Next(0, 10) == 0 
-                                && !this.HasBuildingBlockerInRange(vector2Int1 / 50f, 5, settlementNoiseMap, 0.85f))
+                    && !this.HasBuildingBlockerInRange(vector2Int1 / 50f, 
+                    5, settlementNoiseMap, 0.85f))
               {
                 gameObject = this.InstantiateRandomDecoration
-                                    (ref collider, ref type, decorations1, vector2Int1, 
-                                    out isBlocking, saddleBrown, new TileShadowType?(TileShadowType.Wall));
+                  (ref collider, ref type, decorations1, vector2Int1, 
+                  out isBlocking, saddleBrown, new TileShadowType?(TileShadowType.Wall));
 
                 collider = gameObject.AddComponent<Collider>();
                 collider.SizeOverride = new Rectangle(0, 0, 60, 60);
@@ -313,7 +354,8 @@ namespace GameManager.GameObjects.Components.Tilemaps
                   bool flag3 = false;
                   for (int index = 0; index < this.savestoneLocations.Count; ++index)
                   {
-                    if ((double) Vector2.Distance((Vector2) vector2Int1, this.savestoneLocations[index]) <= 5000.0)
+                    if ((double) Vector2.Distance(
+                        (Vector2) vector2Int1, this.savestoneLocations[index]) <= 5000.0)
                     {
                       flag3 = true;
                       break;
@@ -321,10 +363,16 @@ namespace GameManager.GameObjects.Components.Tilemaps
                   }
                   if (!flag3)
                   {
-                    gameObject = this.CreateTileObject(vector2Int1, texture7, TileShadowType.Wall, 
-                        Color.Gold, minimapShadowType: new TileShadowType?(TileShadowType.None));
+                    gameObject = this.CreateTileObject(vector2Int1, 
+                        SavestoneTexture, 
+                        TileShadowType.Wall, 
+                        Color.Gold, 
+                        minimapShadowType: 
+                        new TileShadowType?(TileShadowType.None));
+
                     gameObject.AddComponent<Savestone>();
                     this.savestoneLocations.Add(gameObject.Transform.Position);
+
                     type = TileType.Savestone;
                   }
                 }
@@ -332,40 +380,61 @@ namespace GameManager.GameObjects.Components.Tilemaps
                   MatoranBuilder.Instance.NewMatoran((Vector2) vector2Int1);
               }
             }
-            else if (flag1 || (double) fastNoiseLite2.GetNoise((float) x, (float) y) > 0.30000001192092896)
+            else if (flag1 || (double) fastNoiseLite2.GetNoise((float) x, 
+                (float) y) > 0.30000001192092896)
             {
-              if ((x > this.HalfWidth - 100 || x < -this.HalfWidth + 100 
-                                || y > this.HalfWidth - 100 ? 1 : (y < -this.HalfWidth + 100 ? 1 : 0)) != 0 
-                                || (double) fastNoiseLite2.GetNoise((float) x, (float) y) > 0.40000000596046448)
+              if ( (x > this.HalfWidth - 100 || x < -this.HalfWidth + 100 
+                    || y > this.HalfWidth - 100 ? 1 : (y < -this.HalfWidth + 100 ? 1 : 0)) != 0 
+                    || (double) fastNoiseLite2.GetNoise((float) x, (float) y) > 0.40000000596046448 )
               {
                 Color lightBlue = Color.LightBlue;
-                floorObj = this.CreateTileObject(vector2Int1, texture2, TileShadowType.None, lightBlue);
+
+                floorObj = this.CreateTileObject(vector2Int1, 
+                    WaterTexture, 
+                    TileShadowType.None, 
+                    lightBlue);
+
                 collider = floorObj.AddComponent<Collider>();
                 type = TileType.Water;
               }
               else if ((double) fastNoiseLite1.GetNoise((float) x, (float) y) > 0.30000001192092896)
               {
-                CreateMountainTerrain(vector2Int1, mountainTexture, texture2D, mountainDecorations,
+                CreateMountainTerrain(vector2Int1, MountainTexture, DungeonEntranceTexture, mountainDecorations,
                     ref gameObject, ref floorObj, ref collider, ref type, ref isBlocking);
               }
               else
               {
                 Color sandyBrown = Color.SandyBrown;
-                floorObj = this.CreateTileObject(vector2Int1, texture6, TileShadowType.None, sandyBrown);
-                if (!this.RandomlyGenerateDungeonEntrance(vector2Int1, texture2D, ref gameObject, ref type)
-                                    && this.Random.Next(0, 12) == 0)
+
+                floorObj = this.CreateTileObject(
+                    vector2Int1, 
+                    SandTexture, 
+                    TileShadowType.None, 
+                    sandyBrown);
+
+                if ( !this.RandomlyGenerateDungeonEntrance(vector2Int1, 
+                      DungeonEntranceTexture, ref gameObject, ref type)
+                                        && this.Random.Next(0, 12) == 0 )
                   gameObject = this.InstantiateRandomDecoration(ref collider, ref type, decorations2, 
                       vector2Int1, out isBlocking, sandyBrown);
               }
             }
             else if ((double) fastNoiseLite1.GetNoise((float) x, (float) y) > 0.30000001192092896)
-              CreateMountainTerrain(vector2Int1, mountainTexture, texture2D, mountainDecorations, 
+              CreateMountainTerrain(vector2Int1, MountainTexture,
+                  DungeonEntranceTexture, mountainDecorations, 
                   ref gameObject, ref floorObj, ref collider, ref type, ref isBlocking);
             else if ((double) fastNoiseLite4.GetNoise((float) x, (float) y) > 0.40000000596046448)
             {
               Color minimapColor = new Color(250, 213, 165);
-              floorObj = this.CreateTileObject(vector2Int1, texture6, TileShadowType.None, minimapColor);
-              if (!this.RandomlyGenerateDungeonEntrance(vector2Int1, texture2D, ref gameObject, ref type)
+
+              floorObj = this.CreateTileObject(
+                  vector2Int1, 
+                  SandTexture, 
+                  TileShadowType.None, 
+                  minimapColor);
+
+              if (!this.RandomlyGenerateDungeonEntrance(vector2Int1, DungeonEntranceTexture,
+                  ref gameObject, ref type)
                                 && this.Random.Next(0, 200) == 0)
                 gameObject = this.InstantiateRandomDecoration(ref collider, ref type, decorations4, 
                     vector2Int1, out isBlocking, minimapColor);
@@ -377,27 +446,42 @@ namespace GameManager.GameObjects.Components.Tilemaps
                   -0.4f, 0.5f, 40f, 5f);
               if (this.Random.Next(0, maxValue) == 0)
               {
-                gameObject = this.CreateTileObject(vector2Int1, texture3, TileShadowType.Object,
-                    darkGreen, minimapShadowType: new TileShadowType?(TileShadowType.Wall));
+                gameObject = this.CreateTileObject(
+                    vector2Int1, TreeTexture, 
+                    TileShadowType.Object,
+                    darkGreen, 
+                    minimapShadowType: new TileShadowType?(TileShadowType.Wall));
+
                 collider = gameObject.AddComponent<Collider>();
                 gameObject.AddComponent<Tree>();
                 collider.SizeOverride = new Rectangle(0, 0, 16, 16);
                 type = TileType.Tree;
                 this.resources.Add(gameObject);
               }
-              else if (!this.RandomlyGenerateDungeonEntrance(vector2Int1, texture2D, ref gameObject, ref type)
+              else if (!this.RandomlyGenerateDungeonEntrance(vector2Int1, DungeonEntranceTexture,
+                  ref gameObject, ref type)
                                 && this.Random.Next(0, maxValue / 2) == 0)
                 gameObject = this.InstantiateRandomDecoration(ref collider, ref type, decorations3,
                     vector2Int1, out isBlocking, darkGreen);
-              floorObj = this.CreateTileObject(vector2Int1, texture4, TileShadowType.None, darkGreen,
+
+              floorObj = this.CreateTileObject(
+                  vector2Int1, 
+                  ForestFloorTexture, 
+                  TileShadowType.None, 
+                  darkGreen,
                   gameObject == null);
             }
             else
             {
               Color greenYellow = Color.GreenYellow;
-              floorObj = this.CreateTileObject(vector2Int1, texture5, TileShadowType.None, greenYellow);
+              floorObj = this.CreateTileObject(
+                  vector2Int1, 
+                  PlainsFloorTexture, 
+                  TileShadowType.None, 
+                  greenYellow);
 
-              if (!this.RandomlyGenerateDungeonEntrance(vector2Int1, texture2D, ref gameObject, ref type) 
+              if (!this.RandomlyGenerateDungeonEntrance(vector2Int1, DungeonEntranceTexture, 
+                  ref gameObject, ref type) 
                                 && this.Random.Next(0, 6) == 0)
                 gameObject = this.InstantiateRandomDecoration(ref collider, ref type, 
                     decorations4, vector2Int1, out isBlocking, greenYellow);
@@ -409,8 +493,8 @@ namespace GameManager.GameObjects.Components.Tilemaps
       else
       {
         Color brown = Color.Brown;
-        Texture2D texture8 = Glob.Content.Load<Texture2D>("Tile_DungeonWall");
-        Texture2D texture9 = Glob.Content.Load<Texture2D>("Tile_DungeonFloor");
+        Texture2D DungeonWallTexture = Glob.Content.Load<Texture2D>("Tile_DungeonWall");
+        Texture2D DungeonFloorTexture = Glob.Content.Load<Texture2D>("Tile_DungeonFloor");
         List<Tilemap.Decoration> decorations = this.LoadBiomeDecorations("Dungeon");
         Rect2 tilemapRect = new Rect2((Vector2) new Vector2Int(0, -6), (Vector2) new Vector2Int(50, 44));
         Vector2Int exteriorDoorPos = new Vector2Int((int) tilemapRect.Center.X, (int) tilemapRect.Max.Y);
@@ -418,7 +502,8 @@ namespace GameManager.GameObjects.Components.Tilemaps
         (List<Rect2> rect2List, List<Vector2Int> doorPositions) = 
                     DungeonGenerator.Generate(tilemapRect, exteriorDoorPos, new int?(this.Seed));
 
-        Rect2 rect2 = new Rect2((Vector2) new Vector2Int(0, this.HalfHeight - 3 - 2), (Vector2) new Vector2Int(4, 8));
+        Rect2 rect2 = new Rect2((Vector2) new Vector2Int(0, this.HalfHeight - 3 - 2), 
+            (Vector2) new Vector2Int(4, 8));
         
         for (int x = -this.HalfWidth; x < this.HalfWidth; ++x)
         {
@@ -434,9 +519,20 @@ namespace GameManager.GameObjects.Components.Tilemaps
                             || this.IsOnRectEdge(x, y, rect2List) || rect2.IsOnEdge(x, y))
             {
               Vector2Int vector2Int5 = new Vector2Int(x, y);
-              if ((x == this.HalfWidth - 1 || x == -this.HalfWidth || y == -this.HalfWidth || y == exteriorDoorPos.Y) && vector2Int5 != exteriorDoorPos || !doorPositions.Contains(vector2Int5))
+              if 
+              (
+               ( x == this.HalfWidth - 1 || x == -this.HalfWidth 
+                  || y == -this.HalfWidth || y == exteriorDoorPos.Y ) 
+               && 
+               vector2Int5 != exteriorDoorPos 
+               || !doorPositions.Contains(vector2Int5)
+              )
               {
-                gameObject = this.CreateTileObject(vector2Int4, texture8, TileShadowType.Wall, brown);
+                gameObject = this.CreateTileObject
+                                    (vector2Int4, 
+                                    DungeonWallTexture, 
+                                    TileShadowType.Wall, 
+                                    brown);
                 collider = gameObject.AddComponent<Collider>();
               }
             }
@@ -445,8 +541,12 @@ namespace GameManager.GameObjects.Components.Tilemaps
               gameObject = this.InstantiateRandomDecoration(ref collider, ref type, decorations, 
                   vector2Int4, out isBlocking, brown);
 
-            GameObject tileObject = this.CreateTileObject(vector2Int4, texture9, 
-                TileShadowType.None, brown, gameObject == null);
+            GameObject tileObject = this.CreateTileObject(
+                vector2Int4, 
+                DungeonFloorTexture, 
+                TileShadowType.None, 
+                brown, 
+                gameObject == null);
 
             this.Tiles[x, y] = new Tilemap.Tile(vector2Int4, type, gameObject, tileObject, collider, isBlocking);
           }
@@ -489,14 +589,17 @@ namespace GameManager.GameObjects.Components.Tilemaps
         if (this.Random.Next(0, 3) == 0)
         {
           gameObject = this.CreateTileObject(pos, mountainTexture, TileShadowType.Wall, gray);
+
           collider = gameObject.AddComponent<Collider>();
         }
         else
         {
           floorObj = this.CreateTileObject(pos, mountainTexture, TileShadowType.None, gray);
-          if (this.RandomlyGenerateDungeonEntrance(pos, dungeonEntranceTexture, ref gameObject, ref type) || this.Random.Next(0, 8) != 0)
+          if (this.RandomlyGenerateDungeonEntrance(pos, dungeonEntranceTexture, ref gameObject, ref type) 
+                        || this.Random.Next(0, 8) != 0)
             return;
-          gameObject = this.InstantiateRandomDecoration(ref collider, ref type, mountainDecorations, pos, out isDecoBlocking, gray);
+          gameObject = this.InstantiateRandomDecoration(ref collider, ref type, mountainDecorations,
+              pos, out isDecoBlocking, gray);
         }
       }
     }//GenerateTiles
@@ -515,6 +618,7 @@ namespace GameManager.GameObjects.Components.Tilemaps
       }
     }
 
+    // HasBuildingBlockerInRange
     private bool HasBuildingBlockerInRange(
       Vector2Int origin,
       int range,
@@ -537,6 +641,8 @@ namespace GameManager.GameObjects.Components.Tilemaps
                 return true;
               case TileType.Savestone:
                 return true;
+              case TileType.DungeonExit: //RnD
+                return true;
             }
           }
           if (Math.Abs(index1) + Math.Abs(index2) <= 3 &&
@@ -546,7 +652,7 @@ namespace GameManager.GameObjects.Components.Tilemaps
         }
       }
       return false;
-    }
+    }//
 
 
     // InstantiateRandomDecoration
@@ -562,10 +668,13 @@ namespace GameManager.GameObjects.Components.Tilemaps
    )
    {
       Tilemap.Decoration randomElement = decorations.GetRandomElement<Tilemap.Decoration>(this.Random);
+
       GameObject tileObject = this.CreateTileObject(pos, randomElement.Texture, 
           TileShadowType.Object, minimapColor, minimapShadowType: minimapShadowType);
+
       if (randomElement.IsRotatable)
         tileObject.Transform.Rotation = this.Random.NextFloat(-3.14159274f, 3.14159274f);
+
       tileObject.Transform.Scale /= 1.5f;
       SpriteRenderer component = tileObject.GetComponent<SpriteRenderer>();
       component.FlipX = this.Random.Next(0, 2) == 0;
@@ -610,31 +719,46 @@ namespace GameManager.GameObjects.Components.Tilemaps
       return tileObject;
    }//InstantiateRandomDecoration
 
-   private bool RandomlyGenerateDungeonEntrance(
+    // RandomlyGenerateDungeonEntrance
+    private bool RandomlyGenerateDungeonEntrance
+    (
       Vector2Int pos,
       Texture2D texture,
       ref GameObject gameObject,
-      ref TileType type)
+      ref TileType type
+    )
     {
       if (this.Random.Next(0, 1000) != 0)
         return false;
       type = TileType.DungeonEntrance;
-      gameObject = this.CreateTileObject(pos, texture, TileShadowType.Wall, 
-    Color.Cyan, minimapShadowType: new TileShadowType?(TileShadowType.None));
+
+      gameObject = this.CreateTileObject
+      (
+          pos, 
+          texture, 
+          TileShadowType.Wall, 
+          Color.Cyan, 
+          minimapShadowType: new TileShadowType?(TileShadowType.None)
+      );
+
       DungeonEntrance dungeonEntrance = gameObject.AddComponent<DungeonEntrance>();
       dungeonEntrance.IsEnabled = false;
       dungeonEntrance.Seed = this.Random.Next();
       this.dungeonEntrances.Add(dungeonEntrance);
       return true;
-    }
+    }//
 
-    public GameObject CreateTileObject(
+
+    // CreateTileObject
+    public GameObject CreateTileObject
+    (
       Vector2Int pos,
       Texture2D texture,
       TileShadowType shadowType,
       Color minimapColor,
       bool addToMinimap = true,
-      TileShadowType? minimapShadowType = null)
+      TileShadowType? minimapShadowType = null
+    )
     {
       if (texture == null)
         return (GameObject) null;
@@ -647,8 +771,9 @@ namespace GameManager.GameObjects.Components.Tilemaps
         spriteRenderer.SpriteBatchOverride = Game1.FloorSpriteBatch;
       this.SetTileShadowAndMinimap(pos, shadowType, minimapColor, addToMinimap, minimapShadowType);
       return tileObject;
-    }
+    }//
 
+    // SetTileShadowAndMinimap
     private void SetTileShadowAndMinimap(
       Vector2Int pos,
       TileShadowType shadowType,
@@ -673,7 +798,8 @@ namespace GameManager.GameObjects.Components.Tilemaps
 
     private Vector2 GetRandomPosInRect(Rect2 rect, float buffer = 0.0f)
     {
-      return new Vector2(this.Random.NextFloat(rect.Min.X + buffer, rect.Max.X - buffer), this.Random.NextFloat(rect.Min.Y + buffer, rect.Max.Y - buffer));
+      return new Vector2(this.Random.NextFloat(rect.Min.X + buffer, rect.Max.X - buffer), 
+          this.Random.NextFloat(rect.Min.Y + buffer, rect.Max.Y - buffer));
     }
 
     private bool IsOnRectEdge(int x, int y, List<Rect2> rectangles)
@@ -697,11 +823,14 @@ namespace GameManager.GameObjects.Components.Tilemaps
 
     public void Update()
     {
-        Microsoft.Xna.Framework.Vector2 pos = new Microsoft.Xna.Framework.Vector2((float)Math.Round(Player.Instance.Transform.Position.X / 50f),
+        Microsoft.Xna.Framework.Vector2 pos = 
+                new Microsoft.Xna.Framework.Vector2(
+            (float)Math.Round(Player.Instance.Transform.Position.X / 50f),
             (float)Math.Round(Player.Instance.Transform.Position.Y / 50f));       
 
       if (this.IsOutOfTileBounds((int) pos.X, (int) pos.Y))
         return;
+
       this.UpdatePlayerTile(this.Tiles[pos]);
     }
 
@@ -713,12 +842,16 @@ namespace GameManager.GameObjects.Components.Tilemaps
         {
           this.SetColliderAreaEnabled(this.oldPlayerTile.TilePos, false);
           this.SetRenderAreaEnabled(this.oldPlayerTile.TilePos, false);
+          
           this.oldPlayerTile.GameObject?.GetComponent<DungeonEntrance>()?.SetEnabled(false);
+          this.oldPlayerTile.GameObject?.GetComponent<DungeonExit>()?.SetEnabled(false);
           this.oldPlayerTile.GameObject?.GetComponent<Savestone>()?.SetEnabled(false);
         }
         this.SetColliderAreaEnabled(newPlayerTile.TilePos, true);
         this.SetRenderAreaEnabled(newPlayerTile.TilePos, true);
+        
         newPlayerTile.GameObject?.GetComponent<DungeonEntrance>()?.SetEnabled(true);
+        newPlayerTile.GameObject?.GetComponent<DungeonExit>()?.SetEnabled(true);
         newPlayerTile.GameObject?.GetComponent<Savestone>()?.SetEnabled(true);
       }
       this.oldPlayerTile = newPlayerTile;
@@ -734,7 +867,9 @@ namespace GameManager.GameObjects.Components.Tilemaps
           if (!this.IsOutOfTileBounds(vector2Int.X, vector2Int.Y))
           {
             Tilemap.Tile tile = this.Tiles[vector2Int.X, vector2Int.Y];
-            if ((Tilemap.waterCollisionEnabled || tile.Type != TileType.Water) && (!Tilemap.isPlayerLevitating || tile.Type != TileType.Tree && tile.Type != TileType.Resource))
+            if ((Tilemap.waterCollisionEnabled || tile.Type != TileType.Water) 
+                 && (!Tilemap.isPlayerLevitating || tile.Type != TileType.Tree 
+                 && tile.Type != TileType.Resource))
               tile.SetCollisionEnabled(value);
           }
         }
@@ -791,7 +926,8 @@ namespace GameManager.GameObjects.Components.Tilemaps
       {
         get
         {
-          return this.IsWall && this.Type != TileType.Water && this.Type != TileType.Building && this.Type != TileType.Resource;
+          return this.IsWall && this.Type != TileType.Water 
+               && this.Type != TileType.Building && this.Type != TileType.Resource;
         }
       }
 

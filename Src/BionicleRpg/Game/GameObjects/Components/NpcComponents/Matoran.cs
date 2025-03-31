@@ -26,7 +26,7 @@ namespace GameManager.GameObjects.Components.NpcComponents
     private Vector2 retreatFrom;
     private string maskName;
     private SpriteRenderer speechBubbleRenderer;
-    private string indicatorText = "Press F to talk";
+    private string indicatorText = "Press F / Tap L.S. to talk";
     private float interactionDistance = 50f;
     private Vector2 originPos;
     private Vector2? wanderPos;
@@ -34,7 +34,13 @@ namespace GameManager.GameObjects.Components.NpcComponents
     private const float IdleMovementSpeed = 75f;
     private const float RunMovementSpeed = 200f;
 
-    public static ReadOnlyCollection<Matoran> MatoranList => Matoran.matoran.AsReadOnly();
+    public static ReadOnlyCollection<Matoran> MatoranList
+    {
+        get
+        {
+            return Matoran.matoran.AsReadOnly();
+        }
+    }
 
     public SpriteRenderer MaskSprite { get; set; }
 

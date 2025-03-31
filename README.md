@@ -14,7 +14,8 @@ Help the Matoran villagers by accepting quests. Venture out into the world to ga
 - Player movements fixed
 - Near weapon (left button click) activated
 - Semi-god mode explored (I detected player's death not realized by original dev team, hehe)
-- Screen scaling is ok for now 
+- Screen scaling is ok for now (but GameLoad mode damaged... some errors persist when forming buttons-screens)
+- Touch-friendly UI inited (on-screen buttons + touchpanel "taps")
 
 ## Controls
 - WASD: Move
@@ -27,10 +28,10 @@ Help the Matoran villagers by accepting quests. Venture out into the world to ga
 
 
 ## Screenshots
-![W11](Images/sshot01.png)
-![W11](Images/sshot02.png)
-![W11](Images/sshot03.png)
-![W11](Images/sshot04.png)
+![W11Lite, SonyVaio](Images/sshot01.png)
+![W11Lite, SonyVaio](Images/sshot02.png)
+![W10M, Lumia 950](Images/sshot03.png)
+
 
 ## Tech details
 - Early bird. I plan to use this thing as template ("sketch") to simplify some adventure game dev in future:)
@@ -40,7 +41,7 @@ Help the Matoran villagers by accepting quests. Venture out into the world to ga
 ## ToDo
 - Realize some more complex game process ;)
 - Fix 100500 bugs after dirty R.E. (constructors, items, sting builders, etc.)
-- Add some touch-friendly UI (if it possible)
+- Fix touch-friendly UI (map interaction, and "LShift" emulation needed!)
 
 
 ## Reference(s)

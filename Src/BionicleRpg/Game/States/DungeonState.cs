@@ -20,6 +20,7 @@ namespace GameManager.States
   {
     public const int ExitTilePosX = 0;
     public const int ExitTilePosY = 22;
+
     private readonly Vector2 entrancePosition;
 
     public int Seed { get; }
@@ -39,24 +40,42 @@ namespace GameManager.States
     public void Enter()
     {
       GameObject.ClearAll();
-      Game1.CreateWorld(50, 50);
+
+      Game1.CreateWorld(50, 50); // Dungeon world if 50x50 only :)
+
       Tilemap.Instance.Seed = this.Seed;
+
       Game1.InitGameObjects();
+
       Tilemap.Tile tile = Tilemap.Instance.Tiles[0, 22];
       Vector2Int pos = tile.TilePos * 50;
-      tile.GameObject = Tilemap.Instance.CreateTileObject(pos, 
-          Glob.Content.Load<Texture2D>("DungeonExit"), TileShadowType.Object, Color.Gold);
-      tile.Type = TileType.DungeonExit;
-      Player.Instance.Transform.Position = (Vector2) pos;
+
+      tile.GameObject = Tilemap.Instance.CreateTileObject
+      (pos, 
+          Glob.Content.Load<Texture2D>("DungeonExit"), 
+          TileShadowType.Object, //RnD
+          Color.Gold  
+       );
+       tile.GameObject.AddComponent<DungeonExit>();
+
+       tile.Type = TileType.DungeonExit;
+
+       Player.Instance.Transform.Position = pos;
+
       UIManager.Instance.ShowUIComponent(UIStateAssign.Gameplay, true);
     }
 
     public void Exit()
     {
+      //RnD : why to clear all?
       GameObject.ClearAll();
-      Game1.CreateWorld(1000, 1000);
+      // Re-create world?
+      Game1.CreateWorld(Game1.WorldSizeX, Game1.WorldSizeY);
+
       Player.Instance.Transform.Position = this.entrancePosition;
+
       Game1.InitGameObjects();
+      
       UIManager.Instance.ShowUIComponent(UIStateAssign.Gameplay, false);
     }
 

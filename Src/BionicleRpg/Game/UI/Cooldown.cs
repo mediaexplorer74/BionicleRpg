@@ -56,7 +56,8 @@ namespace GameManager.UI
     {
       if (this.Active)
       {
-        spriteBatch.DrawString(UIManager.Instance.UIFont, this.timeLeft.ToString("#"), this.position, Color.White, 0.0f, Vector2.Zero, 2f, SpriteEffects.None, 1f);
+        spriteBatch.DrawString(UIManager.Instance.UIFont, this.timeLeft.ToString("#"), 
+            this.position, Color.White, 0.0f, Vector2.Zero, 2f, SpriteEffects.None, 1f);
         foreach (UIComponent uiComponent in UIComponent.UIComponents)
         {
           if (uiComponent is Image)

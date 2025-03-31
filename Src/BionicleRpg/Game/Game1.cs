@@ -34,6 +34,7 @@ namespace GameManager
     private Matrix globalTransformation;
     int backbufferWidth, backbufferHeight;
     public static bool FirstResize = true;
+    public static Vector3 screenScale;
     // *********************************************************************
 
 
@@ -55,55 +56,41 @@ namespace GameManager
     public static SpriteBatch MapSpriteBatch { get; private set; }
     public static Random Random { get; } = new Random();
 
-   
+    public const int WorldSizeX = 500;//1000;
+    public const int WorldSizeY = 500;//1000;
 
+
+    // Game1
     public Game1()
     {
-       this.graphics = new GraphicsDeviceManager((Game) this);
-
-
+    this.graphics = new GraphicsDeviceManager((Game) this);
 #if WINDOWS_PHONE
             TargetElapsedTime = TimeSpan.FromTicks(333333);
 #endif
-
         Game1.ScreenSize = new Vector2(screenWidth, screenHeight);
-
-            graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft
-          | DisplayOrientation.LandscapeRight | DisplayOrientation.Portrait;
-        
+        graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft
+          | DisplayOrientation.LandscapeRight | DisplayOrientation.Portrait;        
         Content.RootDirectory = "Content";
         Glob.Content = Content;
-
-        this.IsMouseVisible = true;
-        this.graphics.IsFullScreen = false; // set *false* only for better debug
-
+        this.IsMouseVisible = true;  
     }//Game1
 
 
     // Initialize
     protected override void Initialize()
     {
-        Instance = this;
-        
+        Instance = this;        
         Glob.GraphicsDevice = GraphicsDevice;
-
         CultureInfo.CurrentCulture = new CultureInfo("en-US");
-
-        DatabaseManager.Instance.CreateRepository();
-        
+        DatabaseManager.Instance.CreateRepository();        
         Quest.Initialize();
-
-        this.graphics.GraphicsProfile = GraphicsProfile.Reach; // RnD
-
+        //this.graphics.GraphicsProfile = GraphicsProfile.Reach; // RnD
         //Game1.ScreenSize = new Vector2(screenWidth, screenHeight);
-
         this.graphics.PreferredBackBufferWidth = Game1.screenWidth;
         this.graphics.PreferredBackBufferHeight = Game1.screenHeight;
-
+        this.graphics.IsFullScreen = true; // set *false* only for better debug
         this.graphics.ApplyChanges();
-
-        base.Initialize();
-        
+        base.Initialize();        
      }//Initialize
 
 
@@ -117,9 +104,9 @@ namespace GameManager
         float horScaling = (float)(backbufferWidth * 1f / baseScreenSize.X);
         float verScaling = (float)(backbufferHeight *1f / baseScreenSize.Y);
 
-        Vector3 screenScalingFactor = new Vector3(horScaling, verScaling, 1);
+        screenScale = new Vector3(horScaling, verScaling, 1);
 
-        globalTransformation = Matrix.CreateScale(screenScalingFactor);
+        globalTransformation = Matrix.CreateScale(screenScale);
 
         //System.Diagnostics.Debug.WriteLine("Screen Size - Width["
         //    + GraphicsDevice.PresentationParameters.BackBufferWidth + "] " +

@@ -14,7 +14,7 @@ namespace GameManager.GameObjects.Components
 {
   public class Savestone : Building
   {
-    private static readonly string indicatorText = "Press F to save";
+    private static readonly string indicatorText = "Press F / Tap L.S. to save";
 
     public int Seed { get; set; }
 
@@ -26,7 +26,10 @@ namespace GameManager.GameObjects.Components
         
     }
 
-    public void Start() => this.SetEnabled(false);
+    public void Start()
+    {
+        this.SetEnabled(false);
+    }
 
     public void Draw(SpriteBatch spriteBatch)
     {
@@ -43,6 +46,9 @@ namespace GameManager.GameObjects.Components
           position, Color.White, 0.0f, Vector2.Zero, 0.5f, SpriteEffects.None, 1f);
     }
 
-    public void SetEnabled(bool value) => this.IsEnabled = value;
-  }
+    public void SetEnabled(bool value)
+    {
+        this.IsEnabled = value;
+    }
+}
 }
